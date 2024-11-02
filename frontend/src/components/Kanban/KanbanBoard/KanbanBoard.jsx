@@ -1,28 +1,28 @@
 import "./KanbanBoard.css"
 import { KanbanColumn } from "../KanbanColumn/KanbanColumn"
 
-export const KanbanBoard = ({ tasks }) => {  
-  const columns = [
+export const KanbanBoard = ({ tasks }) => {
+	const columns = [
 		{
 			id: 'to-do-style',
 			title: 'To do',
-      statusId: 'pending'
+			statusId: 'pending'
 		},
 		{
 			id: 'in-progress-style',
 			title: 'In Progress',
-      statusId: 'inProgress'
+			statusId: 'inProgress'
 		},
 		{
 			id: 'done-style',
 			title: 'Done',
-      statusId: 'completed'
+			statusId: 'completed'
 		},
 	]
 
 	return (
-		<div id='kanban-wrapper'>      
-      {
+		<div id='kanban-wrapper'>
+			{
 				columns.map((column) =>
 					(<KanbanColumn data={column} tasks={tasks} />))
 			}

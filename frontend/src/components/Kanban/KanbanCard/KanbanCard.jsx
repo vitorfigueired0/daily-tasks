@@ -1,7 +1,7 @@
 import "./KanbanCard.css"
 
 export const KanbanCard = ({ data }) => {
-  const { description, tag } = data
+  const { title, description, tag } = data
 
   const truncateDescription = () => {
     if(description.length <= 100){
@@ -13,7 +13,7 @@ export const KanbanCard = ({ data }) => {
 
   return (
     <div id='kanban-card-wrapper'>
-      <h1>Título aqui</h1>
+      <h1>{title}</h1>
       <p>{truncateDescription()}</p>
       <hr />
 
