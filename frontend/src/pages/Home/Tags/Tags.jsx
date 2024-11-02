@@ -38,7 +38,7 @@ export default function Tags({ tags, setTags }) {
     setNewTag(event.target.value);
   };
 
-  return (
+  return (  
     <div className="tags-wrapper">
       <h1>Tags</h1>
       <div className="form-wrapper">
@@ -50,7 +50,7 @@ export default function Tags({ tags, setTags }) {
           />
           <Button typeSubmit={true}>
             <FaPlus />
-            Add Task
+            Add Tag 
           </Button>
         </form>
       </div>

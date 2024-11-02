@@ -14,7 +14,7 @@ export default function Home() {
   });
 
   const mockTags = {
-    headers: [{ label: "Tag", column: "tag" }],
+    headers: [{ label: "Tag name", column: "tag" }],
     rows: [
       { id: 1, tag: "Design" },
       { id: 2, tag: "Frontend" },
