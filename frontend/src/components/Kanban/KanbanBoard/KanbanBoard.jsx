@@ -1,28 +1,31 @@
 import "./KanbanBoard.css"
 import { KanbanColumn } from "../KanbanColumn/KanbanColumn"
+import { useState } from "react"
 
-export const KanbanBoard = () => {
-
-	const columns = [
+export const KanbanBoard = ({ tasks }) => {  
+  const columns = [
 		{
 			id: 'to-do-style',
-			title: 'To do'
+			title: 'To do',
+      statusId: 'pending'
 		},
 		{
 			id: 'in-progress-style',
-			title: 'In Progress'
+			title: 'In Progress',
+      statusId: 'inProgress'
 		},
 		{
 			id: 'done-style',
-			title: 'Done'
+			title: 'Done',
+      statusId: 'done'
 		},
 	]
 
 	return (
-		<div id='kanban-wrapper'>
-			{
+		<div id='kanban-wrapper'>      
+      {
 				columns.map((column) =>
-					(<KanbanColumn data={column} />))
+					(<KanbanColumn data={column} tasks={tasks} />))
 			}
 		</div>
 	)

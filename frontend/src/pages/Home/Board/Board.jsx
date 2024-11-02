@@ -63,8 +63,7 @@ export default function Board({ tasks, setTasks, status }) {
         Add Task
       </Button>
 
-      {/* <Table data={tasks} handleDeleteRow={handleDeleteRow} /> */}
-      <KanbanBoard />
+      <KanbanBoard tasks={tasks} />
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
