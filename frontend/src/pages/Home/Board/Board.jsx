@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
 import InputText from "../../../components/InputText/InputText";
 import OptionSelect from "../../../components/OptionSelect/OptionSelect";
 import Table from "../../../components/Table/Table";
+import { KanbanBoard } from "../../../components/Kanban/KanbanBoard/KanbanBoard";
 import PropTypes from "prop-types";
 import { api } from "../../../services/api";
 
@@ -61,8 +62,9 @@ export default function Board({ tasks, setTasks, status }) {
         <FaPlus />
         Add Task
       </Button>
-      
-      <Table data={tasks} handleDeleteRow={handleDeleteRow} />
+
+      {/* <Table data={tasks} handleDeleteRow={handleDeleteRow} /> */}
+      <KanbanBoard />
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
