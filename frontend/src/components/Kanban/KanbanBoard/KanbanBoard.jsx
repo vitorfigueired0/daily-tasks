@@ -1,6 +1,5 @@
 import "./KanbanBoard.css"
 import { KanbanColumn } from "../KanbanColumn/KanbanColumn"
-import { useState } from "react"
 
 export const KanbanBoard = ({ tasks }) => {  
   const columns = [
@@ -17,7 +16,7 @@ export const KanbanBoard = ({ tasks }) => {
 		{
 			id: 'done-style',
 			title: 'Done',
-      statusId: 'done'
+      statusId: 'completed'
 		},
 	]
 

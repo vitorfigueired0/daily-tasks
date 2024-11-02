@@ -10,11 +10,6 @@ export default function Home() {
   const [tasks, setTasks] = useState([]);
   
   const [tasksTableData, setTasksTableData] = useState({
-    headers: [
-      { label: "Responsible", column: "assignedTo" },
-      { label: "Description", column: "description" },
-      { label: "Status", column: "status" },
-    ],
     rows: [],
   });
 
@@ -40,19 +35,17 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    setTasksTableData({
-      headers: [
-        { label: "Responsible", column: "assignedTo" },
-        { label: "Description", column: "description" },
-        { label: "Status", column: "status" },
-      ],
-      rows: tasks,
-    });
+    setTasksTableData({ rows: tasks });
   }, [tasks, setTasks]);
 
   const [tags, setTags] = useState(mockTags);
 
-  const statusOptions = [{ id: 1, value: "pending", label: "Pending" }];
+  const statusOptions = [
+    { id: 1, value: "pending", label: "Pending" }, 
+    { id: 2, value: "inProgress", label: "In Progress"},
+    { id: 3, value: "completed", label: "Done" }
+  
+  ];
   const tabs = {
     board: (
       <Board
