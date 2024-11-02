@@ -7,6 +7,7 @@ export default function Table({ data, handleDeleteRow }) {
   
   return (
     <table className="table">
+
       <thead className="table-header">
         <tr>
           {headers.map((header, index) => (
@@ -17,6 +18,7 @@ export default function Table({ data, handleDeleteRow }) {
           {rows.length !== 0 && <th className="table-header-cell"></th>}
         </tr>
       </thead>
+      
       <tbody className="table-body">
         {rows.length === 0 ? (
           <tr className="table-row">

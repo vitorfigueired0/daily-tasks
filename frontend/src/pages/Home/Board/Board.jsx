@@ -61,6 +61,7 @@ export default function Board({ tasks, setTasks, status }) {
         <FaPlus />
         Add Task
       </Button>
+      
       <Table data={tasks} handleDeleteRow={handleDeleteRow} />
       <Modal
         isOpen={isModalOpen}

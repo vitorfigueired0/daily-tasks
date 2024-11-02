@@ -8,6 +8,7 @@ import { api } from "../../services/api";
 export default function Home() {
   const [currentTab, setCurrentTab] = useState("board");
   const [tasks, setTasks] = useState([]);
+  
   const [tasksTableData, setTasksTableData] = useState({
     headers: [
       { label: "Responsible", column: "assignedTo" },
@@ -52,7 +53,6 @@ export default function Home() {
   const [tags, setTags] = useState(mockTags);
 
   const statusOptions = [{ id: 1, value: "pending", label: "Pending" }];
-
   const tabs = {
     board: (
       <Board
