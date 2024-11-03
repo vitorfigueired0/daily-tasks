@@ -8,17 +8,13 @@ import { api } from "../../services/api";
 export default function Home() {
   const [currentTab, setCurrentTab] = useState("board");
   const [tasks, setTasks] = useState([]);
+  
   const [tasksTableData, setTasksTableData] = useState({
-    headers: [
-      { label: "Responsible", column: "assignedTo" },
-      { label: "Description", column: "description" },
-      { label: "Status", column: "status" },
-    ],
     rows: [],
   });
 
   const mockTags = {
-    headers: [{ label: "Tag", column: "tag" }],
+    headers: [{ label: "Tag name", column: "tag" }],
     rows: [
       { id: 1, tag: "Design" },
       { id: 2, tag: "Frontend" },
@@ -39,19 +35,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    setTasksTableData({
-      headers: [
-        { label: "Responsible", column: "assignedTo" },
-        { label: "Description", column: "description" },
-        { label: "Status", column: "status" },
-      ],
-      rows: tasks,
-    });
+    setTasksTableData({ rows: tasks });
   }, [tasks, setTasks]);
 
   const [tags, setTags] = useState(mockTags);
 
-  const statusOptions = [{ id: 1, value: "pending", label: "Pending" }];
+  const statusOptions = [
+    { id: 1, value: "pending", label: "To do" }, 
+    { id: 2, value: "inProgress", label: "In Progress"},
+    { id: 3, value: "completed", label: "Done" }
+  ];
 
   const tabs = {
     board: (

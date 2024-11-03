@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
 import "./Table.css";
-import { MdOutlineDeleteOutline } from "react-icons/md";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { FiEdit2 } from "react-icons/fi";
 
 export default function Table({ data, handleDeleteRow }) {
   const { headers, rows } = data;
   
   return (
     <table className="table">
+
       <thead className="table-header">
         <tr>
           {headers.map((header, index) => (
@@ -17,6 +19,7 @@ export default function Table({ data, handleDeleteRow }) {
           {rows.length !== 0 && <th className="table-header-cell"></th>}
         </tr>
       </thead>
+      
       <tbody className="table-body">
         {rows.length === 0 ? (
           <tr className="table-row">
@@ -30,9 +33,12 @@ export default function Table({ data, handleDeleteRow }) {
                   {row[header.column]}
                 </td>
               ))}
-              <td>
+              <td id='table-buttons'>
                 <button onClick={() => handleDeleteRow(row.id)}>
-                  <MdOutlineDeleteOutline />
+                  <FaRegTrashAlt size={18} color='#70798D'/>
+                </button>
+                <button onClick={() => handleDeleteRow(row.id)}>
+                  <FiEdit2 size={18} color='#70798D'/>
                 </button>
               </td>
             </tr>

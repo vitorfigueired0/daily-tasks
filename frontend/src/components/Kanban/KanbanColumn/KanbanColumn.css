@@ -1,0 +1,32 @@
+#kanban-column-wrapper {
+  background-color: #EEF2F5;
+  height: 100%;
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#kanban-column-wrapper > h1 {  
+  font-size: larger;
+  font-weight: 500;
+}
+
+#kanban-column-wrapper > hr {
+  height: 4px;
+  border: none;
+  margin: 15px 0px;
+}
+
+#to-do-style {
+  background-color: #00569E;
+}
+
+#in-progress-style {
+  background-color: #FFA500;
+}
+
+#done-style {
+  background-color: #40A737;
+}

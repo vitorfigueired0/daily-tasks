@@ -6,6 +6,7 @@ export default function OptionSelect({
   options,
   required,
   onChange,
+  value
 }) {
   return (
     <div className="select-wrapper">
@@ -13,9 +14,9 @@ export default function OptionSelect({
       <select
         id="option-select"
         name="option-select"
-        defaultValue={""}
         required={required}
         onChange={onChange}
+        value={value}
       >
         <option value={""} disabled>
           {placeholder}
