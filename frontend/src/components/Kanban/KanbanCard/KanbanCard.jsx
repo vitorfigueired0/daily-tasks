@@ -2,9 +2,9 @@ import { useState } from "react"
 import Modal from "../../Modal/Modal"
 import "./KanbanCard.css"
 
-export const KanbanCard = ({ data }) => {
+export const KanbanCard = ({ data, setTasks }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { title, description, tag } = data
+  const { id, title, description, tag } = data
 
   const truncateDescription = () => {
     if(description.length <= 100){
@@ -33,6 +33,7 @@ export const KanbanCard = ({ data }) => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={title}
+        setTasks={setTasks}
       >
 
       </Modal>

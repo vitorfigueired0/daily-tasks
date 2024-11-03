@@ -62,7 +62,7 @@ export default function Board({ tasks, setTasks, status }) {
         Add Task
       </Button>
 
-      <KanbanBoard tasks={tasks} />
+      <KanbanBoard tasks={tasks} setTasks={setTasks}/>
       <Modal
         isCreate={true}
         isOpen={isModalOpen}
