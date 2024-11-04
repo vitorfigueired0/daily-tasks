@@ -30,7 +30,8 @@ const getAllTasks = async (req, res) => {
         model: Tag,
         required: hasQueryParameter,
         through: { attributes: [] },
-        where: whereClause
+        where: whereClause,
+        as: 'tags'
       }]
     });
 
