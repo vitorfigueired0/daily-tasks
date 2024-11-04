@@ -1,4 +1,4 @@
-const { Task, TaskTag } = require('../models');
+const { Task, TaskTag, Tag } = require('../models');
 
 const createTask = async (req, res) => {
   try {
@@ -14,7 +14,13 @@ const createTask = async (req, res) => {
 
 const getAllTasks = async (req, res) => {
   try {
-    const tasks = await Task.findAll();
+    const tasks = await Task.findAll({
+      include: [{
+        model: Tag,
+        required: true,
+        through: { attributes: [] }
+      }]
+    });
 
     return res.status(200).json(tasks);
   } catch (error) {
@@ -24,7 +30,13 @@ const getAllTasks = async (req, res) => {
 
 const getTaskById = async (req, res) => {
   try {
-    const task = await Task.findByPk(req.params.id);
+    const task = await Task.findByPk(req.params.id, {
+      include: [{
+        model: Tag,
+        required: true,
+        through: { attributes: [] }
+      }]
+    });
 
     if (task) {
       return res.status(200).json(task);
@@ -73,7 +85,7 @@ const deleteTask = async (req, res) => {
 const associateTags = (taskId, tags) => {
   tags.forEach(async tag => {
     await TaskTag.create(
-      { taskId, tagId: tag.tagId}, 
+      { taskId, tagId: tag.tagId },
       { fields: ['taskId', 'tagId'], returning: ['taskId', 'tagId'] },
     )
   });
