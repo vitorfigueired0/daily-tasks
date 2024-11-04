@@ -1,11 +1,15 @@
+const { where } = require('sequelize');
 const { Task, TaskTag, Tag } = require('../models');
 
 const createTask = async (req, res) => {
   try {
     const { title, description, status, tags } = req.body;
-
     const task = await Task.create({ title, description, status, tags });
-    associateTags(task.id, tags)
+    
+    if(tags) {
+      associateTags(task.id, tags)
+    }
+
     return res.status(201).json(task);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -13,12 +17,20 @@ const createTask = async (req, res) => {
 };
 
 const getAllTasks = async (req, res) => {
+  const hasQueryParameter = Object.keys(req.query).length > 0
+  let whereClause = {}
+
+  if(hasQueryParameter) {
+    whereClause.id = req.query.tag
+  }
+  
   try {
     const tasks = await Task.findAll({
       include: [{
         model: Tag,
-        required: true,
-        through: { attributes: [] }
+        required: hasQueryParameter,
+        through: { attributes: [] },
+        where: whereClause
       }]
     });
 
