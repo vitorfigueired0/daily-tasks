@@ -1,6 +1,6 @@
 import { FaPlus } from "react-icons/fa";
 import "./Tags.css";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import Table from "../../../components/Table/Table"
@@ -10,29 +10,30 @@ import InputText from "../../../components/InputText/InputText";
 export default function Tags({ tags, setTags }) {
   const [newTag, setNewTag] = useState("");
 
-  const handleDeleteRow = useCallback(
-    async (id) => {
-      if (!tags.rows.length) {
-        return;
-      }
-      setTags((prev) => ({
-        ...prev,
-        rows: prev.rows.filter((tag) => tag.id !== id),
-      }));
-    },
-    [tags.rows.length, setTags]
-  );
+  // const handleDeleteRow = useCallback(
+  //   async (id) => {
+  //     if (!tags.length) {
+  //       return;
+  //     }
 
-  const handleTagSubmit = (event) => {
-    event.preventDefault();
-    if (!newTag) {
-      return;
-    }
-    setTags((prev) => ({
-      ...prev,
-      rows: [...prev.rows, { id: prev.rows.length + 1, tag: newTag }],
-    }));
-  };
+  //     setTags((prev) => ({
+  //       ...prev,
+  //       rows: prev.rows.filter((tag) => tag.id !== id),
+  //     }));
+  //   },
+  //   [tags.length, setTags]
+  // );
+
+  // const handleTagSubmit = (event) => {
+  //   event.preventDefault();
+  //   if (!newTag) {
+  //     return;
+  //   }
+  //   setTags((prev) => ({
+  //     ...prev,
+  //     rows: [...prev.rows, { id: prev.rows.length + 1, tag: newTag }],
+  //   }));
+  // };
 
   const handleChange = (event) => {
     setNewTag(event.target.value);
@@ -42,7 +43,7 @@ export default function Tags({ tags, setTags }) {
     <div className="tags-wrapper">
       <h1>Tags</h1>
       <div className="form-wrapper">
-        <form onSubmit={(event) => handleTagSubmit(event)}>
+        <form onSubmit={(event) => console.log(event)}>
           <InputText
             placeholder={"Insert tag name"}
             required={true}
@@ -55,7 +56,7 @@ export default function Tags({ tags, setTags }) {
         </form>
       </div>
 
-      <Table data={tags} handleDeleteRow={handleDeleteRow}/>
+      <Table data={{ headers: [{ label: "Tag name", column: "name" }], rows: tags }} handleDeleteRow={() => console.log('abc')}/>
     </div>
   );
 }
