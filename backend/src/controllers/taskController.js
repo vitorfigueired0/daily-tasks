@@ -1,10 +1,15 @@
-const { Task } = require('../models');
+const { where } = require('sequelize');
+const { Task, TaskTag, Tag } = require('../models');
 
 const createTask = async (req, res) => {
   try {
-    const { title, description, status } = req.body;
+    const { title, description, status, tags } = req.body;
+    const task = await Task.create({ title, description, status, tags });
+    
+    if(tags) {
+      associateTags(task.id, tags)
+    }
 
-    const task = await Task.create({ title, description, status });
     return res.status(201).json(task);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -12,8 +17,23 @@ const createTask = async (req, res) => {
 };
 
 const getAllTasks = async (req, res) => {
+  const hasQueryParameter = Object.keys(req.query).length > 0
+  let whereClause = {}
+
+  if(hasQueryParameter) {
+    whereClause.id = req.query.tag
+  }
+  
   try {
-    const tasks = await Task.findAll();
+    const tasks = await Task.findAll({
+      include: [{
+        model: Tag,
+        required: hasQueryParameter,
+        through: { attributes: [] },
+        where: whereClause,
+        as: 'tags'
+      }]
+    });
 
     return res.status(200).json(tasks);
   } catch (error) {
@@ -23,7 +43,13 @@ const getAllTasks = async (req, res) => {
 
 const getTaskById = async (req, res) => {
   try {
-    const task = await Task.findByPk(req.params.id);
+    const task = await Task.findByPk(req.params.id, {
+      include: [{
+        model: Tag,
+        required: true,
+        through: { attributes: [] }
+      }]
+    });
 
     if (task) {
       return res.status(200).json(task);
@@ -68,6 +94,15 @@ const deleteTask = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+const associateTags = (taskId, tags) => {
+  tags.forEach(async tag => {
+    await TaskTag.create(
+      { taskId, tagId: tag.tagId },
+      { fields: ['taskId', 'tagId'], returning: ['taskId', 'tagId'] },
+    )
+  });
+}
 
 module.exports = {
   createTask,

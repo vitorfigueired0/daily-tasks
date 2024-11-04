@@ -8,19 +8,10 @@ import { api } from "../../services/api";
 export default function Home() {
   const [currentTab, setCurrentTab] = useState("board");
   const [tasks, setTasks] = useState([]);
+  const [tags, setTags] = useState([])
   
-  const [tasksTableData, setTasksTableData] = useState({
-    rows: [],
-  });
-
-  const mockTags = {
-    headers: [{ label: "Tag name", column: "tag" }],
-    rows: [
-      { id: 1, tag: "Design" },
-      { id: 2, tag: "Frontend" },
-      { id: 3, tag: "Backend" },
-    ],
-  };
+  const [tasksTableData, setTasksTableData] = useState({ rows: [] });
+  const [tagsTableData, setTagsTableData] = useState({ rows: [] });
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -35,10 +26,20 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await api.get("/tags");
+        setTags(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTags();
+  }, []);
+
+  useEffect(() => {
     setTasksTableData({ rows: tasks });
   }, [tasks, setTasks]);
-
-  const [tags, setTags] = useState(mockTags);
 
   const statusOptions = [
     { id: 1, value: "pending", label: "To do" }, 
