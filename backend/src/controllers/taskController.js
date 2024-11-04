@@ -1,10 +1,11 @@
-const { Task } = require('../models');
+const { Task, TaskTag } = require('../models');
 
 const createTask = async (req, res) => {
   try {
-    const { title, description, status } = req.body;
+    const { title, description, status, tags } = req.body;
 
-    const task = await Task.create({ title, description, status });
+    const task = await Task.create({ title, description, status, tags });
+    associateTags(task.id, tags)
     return res.status(201).json(task);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -68,6 +69,15 @@ const deleteTask = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+const associateTags = (taskId, tags) => {
+  tags.forEach(async tag => {
+    await TaskTag.create(
+      { taskId, tagId: tag.tagId}, 
+      { fields: ['taskId', 'tagId'], returning: ['taskId', 'tagId'] },
+    )
+  });
+}
 
 module.exports = {
   createTask,
