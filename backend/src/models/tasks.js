@@ -3,17 +3,29 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 	class Task extends Model {
-		static associate(models) { }
+		static associate(models) {
+			Task.belongsToMany(models.Tag, {
+				through: 'TaskTags',
+				foreignKey: 'taskId',
+				otherKey: 'tagId'
+			});
+		}
 	}
 
 	Task.init(
 		{
+			id: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
+				autoIncrement: true,
+				allowNull: false,
+			},
 			title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: 'Empty Title'
-      },
-      description: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				defaultValue: 'Empty Title',
+			},
+			description: {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
