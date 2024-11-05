@@ -1,12 +1,13 @@
-export const TagBadge = ({ name, color }) => {
+export const TagBadge = ({ name, nameHex, backgroundHex }) => {
 	
-	const style = `font-size: 11px;
-		background-color: ${color.backgroundHex};
-		color: ${color.nameHex};
-		padding: 6px;
-		border-radius: 8px;
-		font-weight: 600;
-	`
+	const style = {
+		fontSize: '11px',
+		backgroundColor: backgroundHex,
+		color: nameHex,
+		padding: '6px',
+		borderRadius: '8px',
+		fontWeight: 600
+	}
 
 	return (
 		<>

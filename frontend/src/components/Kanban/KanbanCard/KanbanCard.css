@@ -32,4 +32,5 @@
   height: 40px;
   display: flex;
   align-items: center;
+  gap: 5px
 }

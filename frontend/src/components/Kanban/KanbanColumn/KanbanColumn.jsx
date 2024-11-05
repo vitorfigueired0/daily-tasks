@@ -4,7 +4,7 @@ import { KanbanCard } from "../KanbanCard/KanbanCard"
 
 export const KanbanColumn = ({ data, tasks, setTasks }) => {
   const [cardsData, setCardsData] = useState([])
-  const { id, title, statusId, statusLabel } = data
+  const { id, title, statusId } = data
 
   useEffect(() => {
     if (tasks) {
@@ -19,7 +19,7 @@ export const KanbanColumn = ({ data, tasks, setTasks }) => {
       <h1>{title}</h1>
       <hr id={id} />
       {cardsData.map((card) => (
-        <KanbanCard data={card} setTasks={setTasks}/>
+        <KanbanCard data={card} setTasks={setTasks} key={card.id}/>
       ))}
     </div>
   )

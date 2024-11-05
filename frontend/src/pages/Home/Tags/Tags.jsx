@@ -79,6 +79,6 @@ export default function Tags({ tags, setTags }) {
 }
 
 Tags.propTypes = {
-  tags: PropTypes.object.isRequired,
+  tags: PropTypes.array.isRequired,
   setTags: PropTypes.func.isRequired,
 };
