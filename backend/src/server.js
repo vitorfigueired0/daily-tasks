@@ -27,10 +27,11 @@ const jwtVerify = (req, res, next) => {
   next();
 };
 
-app.use(jwtVerify)
 app.use(cors(corsOptions));
+app.use(jwtVerify)
 app.use(express.json());
 app.use('/', routes);
+
 
 app.listen(PORT, async () => {
   console.log(`Servidor rodando na porta ${PORT}`);

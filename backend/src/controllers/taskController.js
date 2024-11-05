@@ -74,7 +74,9 @@ const getTaskById = async (req, res) => {
 const updateTask = async (req, res) => {
   try {
     const { title, description, status } = req.body;
-    const task = await Task.findByPk(req.params.id);
+    const task = await Task.findByPk(req.params.id, {
+      attributes: ['id']
+    });
 
     if (task) {
       await task.update({ title, description, status });
@@ -115,6 +117,8 @@ const associateTags = (taskId, tags) => {
 }
 
 const verifyTags = async (tags, user) => {
+  if(!tags) return;
+  
   for (let tag of tags) {
     const dbTag = await Tag.findByPk(tag.tagId, { attributes: ['id', 'userId'] })
 
