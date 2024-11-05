@@ -2,7 +2,7 @@ import { FaPlus } from "react-icons/fa";
 import Button from "../../../components/Button/Button";
 import "./Board.css";
 import Modal from "../../../components/Modal/Modal";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InputText from "../../../components/InputText/InputText";
 import { KanbanBoard } from "../../../components/Kanban/KanbanBoard/KanbanBoard";
 import PropTypes from "prop-types";
@@ -12,7 +12,6 @@ import Select from 'react-select'
 export default function Board({ tasks, setTasks, status, tags }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tagOptions, setTagOptions] = useState([]);
-  const [success, setSuccess] = useState(true)
   const [errors, setErrors] = useState({
     title: false,
     description: false,
@@ -24,14 +23,14 @@ export default function Board({ tasks, setTasks, status, tags }) {
     setTagOptions(mappedTags)
   }, [tags]);
 
-  const selectorStyles = {
+  const modalSelectorStyles = {
     container: (provided) => ({
       ...provided,
       height: '40px'
-      
+
     }),
     control: (provided) => ({
-     ...provided,
+      ...provided,
       background: 'rgba(238, 242, 245, 0.50)',
       padding: '5px 3px',
       border: 'none',
@@ -42,17 +41,36 @@ export default function Board({ tasks, setTasks, status, tags }) {
       ...provided,
       background: 'white',
     }),
-};
-
-  const clearNewTask = {
-    title: "",
-    description: "",
-    status: "",
-    tags: []
   };
 
-  const [newTask, setNewTask] = useState(clearNewTask);
-
+  const filterSelectorStyles = {
+    container: (provided) => ({
+      ...provided,
+      width: '200px',
+      cursor: 'pointer'
+    }),
+    
+    control: (provided) => ({
+      ...provided,
+      background: 'rgba(238, 242, 245, 0.50)',
+      padding: '3px 1px',
+      border: 'none',
+      borderRadius: '.5rem',
+      outline: '1px solid #E9EBEF',
+      cursor: 'pointer'
+    }),
+    menu: (provided) => ({
+      ...provided,
+      background: 'white',
+    }),
+    option: (provided) => ({
+      ...provided,
+      cursor: 'pointer'
+    })
+  };
+  
+  const clearTask = { title: "", description: "", status: "", tags: [] }
+  const [newTask, setNewTask] = useState(clearTask);
   const handleCloseModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -61,20 +79,20 @@ export default function Board({ tasks, setTasks, status, tags }) {
     setIsModalOpen((prev) => !prev);
   };
 
-  const handleDeleteRow = useCallback(
-    async (id) => {
-      if (!tasks.rows.length) {
-        return;
-      }
-      try {
-        await api.delete(`/tasks/${id}`);
-        setTasks((prev) => prev.filter((task) => task.id !== id));
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [tasks.rows.length, setTasks]
-  );
+  const handleChangeFilter = async (tag) => {
+    try {
+      const response = await api.get(`/tasks${tag ? `?tag=${tag.value}` : ''}`, {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
+
+      setTasks(response.data);
+      return true
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const handleSubmit = async () => {
     const newErrors = {
@@ -89,7 +107,7 @@ export default function Board({ tasks, setTasks, status, tags }) {
       return false
     }
 
-    const mappedTags = newTask.tags.map((tag) => { return { tagId: tag.value }})
+    const mappedTags = newTask.tags.map((tag) => { return { tagId: tag.value } })
     const data = {
       title: newTask.title,
       description: newTask.description,
@@ -111,19 +129,33 @@ export default function Board({ tasks, setTasks, status, tags }) {
       });
 
       setTasks(response.data);
+      setNewTask(clearTask)
       return true
     } catch (error) {
       console.error(error);
-      setSuccess(false)
     }
   };
 
   return (
     <div id="board-wrapper">
-      <Button onClick={handleOpenModal}>
-        <FaPlus />
-        Add Task
-      </Button>
+
+      <div className="board-header">
+        <Button onClick={handleOpenModal}>
+          <FaPlus />
+          Add Task
+        </Button>
+        
+        <div className="board-filters">
+          <span>Filter by tag:</span>
+          <Select
+            styles={filterSelectorStyles}
+            options={tagOptions}
+            isClearable={true}
+            onChange={(v) => handleChangeFilter(v)}
+          />
+        </div>
+
+      </div>
 
       <KanbanBoard tasks={tasks} setTasks={setTasks} />
       <Modal
@@ -143,7 +175,7 @@ export default function Board({ tasks, setTasks, status, tags }) {
             setNewTask((prev) => ({ ...prev, title: e.target.value }))
           }
         />
-        
+
         <InputText
           required={true}
           label="Description *"
@@ -154,24 +186,24 @@ export default function Board({ tasks, setTasks, status, tags }) {
             setNewTask((prev) => ({ ...prev, description: e.target.value }))
           }
         />
-        
+
         <label>Status *</label>
         <Select
-          styles={selectorStyles}
+          styles={modalSelectorStyles}
           options={status}
           isRequired
-          onChange={(e) => 
-            setNewTask((prev) => ({ ...prev, status: e.value}))
+          onChange={(e) =>
+            setNewTask((prev) => ({ ...prev, status: e.value }))
           }
         />
-        
+
         <label>Tags</label>
         <Select
-          styles={selectorStyles}
+          styles={modalSelectorStyles}
           options={tagOptions}
           isMulti
-          onChange={(values) => 
-            setNewTask((prev) => ({ ...prev, tags: values}))
+          onChange={(values) =>
+            setNewTask((prev) => ({ ...prev, tags: values }))
           }
         />
 

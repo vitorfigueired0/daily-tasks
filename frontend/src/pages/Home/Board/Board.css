@@ -16,3 +16,15 @@
     font-weight: 500;
     line-height: 2.5rem;
 }
+
+.board-header {
+    display: flex;
+    align-items: center;
+}
+
+.board-filters {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 30px;
+}
