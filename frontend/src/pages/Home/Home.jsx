@@ -16,7 +16,11 @@ export default function Home() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await api.get("/tasks");
+        const response = await api.get("/tasks", {
+          headers: {
+            Authorization: localStorage.getItem('authToken')
+          }
+        });
         setTasks(response.data);
       } catch (error) {
         console.error(error);
@@ -28,7 +32,11 @@ export default function Home() {
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const response = await api.get("/tags");
+        const response = await api.get("/tags", {
+          headers: {
+            Authorization: localStorage.getItem('authToken')
+          }
+        });
         setTags(response.data);
       } catch (error) {
         console.error(error);

@@ -32,10 +32,19 @@ export default function Tags({ tags, setTags }) {
     }
 
     try {
-      await api.post("/tags", { name: newTag.name });
-      const response = await api.get("/tags");
-      setTags(response.data)
+      await api.post("/tags", newTag, {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
 
+      const response = await api.get("/tags", {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
+
+      setTags(response.data)
       setNewTag({ name: "" })
     } catch (error) {
       console.error(error);

@@ -26,10 +26,19 @@ export default function Modal({ isCreate, data, isOpen, onClose, children, title
   };
 
   const updateTaskStatus = async (id, status) => {
+    const data = { status }
     try {
-      await api.patch(`/tasks/${id}`, { status });
+      await api.patch(`/tasks/${id}`, data, {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
       
-      const response = await api.get("/tasks");
+      const response = await api.get("/tasks", {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
       setTasks(response.data);
     } catch (error) {
       console.error(error);

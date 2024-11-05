@@ -42,13 +42,25 @@ export default function Board({ tasks, setTasks, status }) {
   );
 
   const handleSubmit = async () => {
+    const data = {
+      title: newTask.title,
+      description: newTask.description,
+      status: newTask.status,
+    }
+
     try {
-      await api.post("/tasks", {
-        title: newTask.title,
-        description: newTask.description,
-        status: newTask.status,
+      await api.post("/tasks", data, {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
       });
-      const response = await api.get("/tasks");
+
+      const response = await api.get("/tasks", {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
+      
       setTasks(response.data);
     } catch (error) {
       console.error(error);
