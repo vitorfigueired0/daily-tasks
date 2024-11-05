@@ -4,7 +4,7 @@ import { MdClose } from "react-icons/md";
 import Button from "../Button/Button";
 import { FaPlus } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
-import OptionSelect from "../OptionSelect/OptionSelect";
+import SingleSelector from "../OptionSelect/SingleSelector";
 import { api } from "../../services/api"
 
 export default function Modal({ isCreate, data, isOpen, onClose, children, title, handleSubmit, setTasks }) {
@@ -75,7 +75,7 @@ export default function Modal({ isCreate, data, isOpen, onClose, children, title
               <p>{data.description}</p>
               
               <h2>Status:</h2>
-              <OptionSelect
+              <SingleSelector
                 required={true}
                 value={data.status}
                 options={statusOptions}

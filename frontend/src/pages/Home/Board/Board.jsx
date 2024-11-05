@@ -4,17 +4,19 @@ import "./Board.css";
 import Modal from "../../../components/Modal/Modal";
 import { useCallback, useState } from "react";
 import InputText from "../../../components/InputText/InputText";
-import OptionSelect from "../../../components/OptionSelect/OptionSelect";
+import SingleSelector from "../../../components/OptionSelect/SingleSelector";
 import { KanbanBoard } from "../../../components/Kanban/KanbanBoard/KanbanBoard";
 import PropTypes from "prop-types";
 import { api } from "../../../services/api";
+import MultiSelector from "../../../components/OptionSelect/MultiSelector";
 
-export default function Board({ tasks, setTasks, status }) {
+export default function Board({ tasks, setTasks, status, tags }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const clearNewTask = {
     title: "",
     description: "",
     status: "",
+    tags: []
   };
   const [newTask, setNewTask] = useState(clearNewTask);
 
@@ -46,6 +48,7 @@ export default function Board({ tasks, setTasks, status }) {
       title: newTask.title,
       description: newTask.description,
       status: newTask.status,
+      tags: newTask.tags
     }
 
     try {
@@ -60,7 +63,7 @@ export default function Board({ tasks, setTasks, status }) {
           Authorization: localStorage.getItem('authToken')
         }
       });
-      
+
       setTasks(response.data);
     } catch (error) {
       console.error(error);
@@ -100,7 +103,7 @@ export default function Board({ tasks, setTasks, status }) {
             setNewTask((prev) => ({ ...prev, description: e.target.value }))
           }
         />
-        <OptionSelect
+        <SingleSelector
           label="Status"
           required={true}
           placeholder={"Select status"}
@@ -109,6 +112,16 @@ export default function Board({ tasks, setTasks, status }) {
             setNewTask((prev) => ({ ...prev, status: e.target.value }))
           }
         />
+        <MultiSelector
+          label="Tags"
+          required={true}
+          placeholder="Select tags"
+          options={tags}
+          onChange={(selected) =>
+            setNewTask((prev) => ({ ...prev, tags: selected }))
+          }
+        />
+
       </Modal>
     </div>
   );

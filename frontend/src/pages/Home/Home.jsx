@@ -61,6 +61,7 @@ export default function Home() {
         status={statusOptions}
         tasks={tasksTableData}
         setTasks={setTasks}
+        tags={tags}
       />
     ),
     tags: <Tags tags={tags} setTags={setTags} />,

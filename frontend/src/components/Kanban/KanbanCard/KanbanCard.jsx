@@ -27,6 +27,7 @@ export const KanbanCard = ({ data, setTasks }) => {
       <div id='badge-div'>
         <span>Nome da tag</span>
       </div>
+      
       <Modal
         isCreate={false}
         data={data}
