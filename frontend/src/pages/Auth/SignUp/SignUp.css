@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", Arial;
+}
+
+#main-wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+}
+
+#color-div {
+  background-color: #00BE78;
+  width: 30%;
+  padding: 100px 30px;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#color-div-child > h1 {
+  margin: 30px 0px;
+  font-size: 55px;
+}
+
+#color-div-child > p {
+  font-size: 25px;
+}
+
+#color-div-child > button {
+  font-size: 20px;
+  padding: 20px 10px;
+  background-color: transparent;
+  color: white;
+
+  border: 1px solid white;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 85%;
+  margin: 0px auto;
+}
+
+#color-div-child > button:hover {
+  background-color: rgba(255, 255, 255, 0.120);
+}
+
+#color-div-child {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+#form-div {
+  width: 70%;
+}

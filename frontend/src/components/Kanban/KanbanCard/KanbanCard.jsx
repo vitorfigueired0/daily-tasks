@@ -27,7 +27,7 @@ export const KanbanCard = ({ data, setTasks }) => {
 
       <div id='badge-div'>
         {tags.map((tag) => (
-          <TagBadge name={tag.name} nameHex={tag.nameHex} backgroundHex={tag.backgroundHex} />
+          <TagBadge name={tag.name} nameHex={tag.nameHex} backgroundHex={tag.backgroundHex} key={tag.id}/>
         ))}
       </div>
 
