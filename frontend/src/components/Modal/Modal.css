@@ -70,3 +70,8 @@
     font-size:large;
     font-weight: 500;
 }
+
+.tags {
+    display: flex;
+    gap: 10px
+}
