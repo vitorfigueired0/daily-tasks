@@ -23,6 +23,7 @@ const jwtVerify = (req, res, next) => {
   const decoded = isTokenValid(token)
   if(!decoded) return res.status(401).json({ error: 'Unauthorized' });
   
+  req.currentUser = decoded
   next();
 };
 

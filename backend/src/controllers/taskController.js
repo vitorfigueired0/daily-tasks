@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const { Task, TaskTag, Tag } = require('../models');
 
 const createTask = async (req, res) => {
