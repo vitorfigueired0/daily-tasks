@@ -1,15 +1,23 @@
+const { where } = require('sequelize');
 const { Task, TaskTag, Tag } = require('../models');
 
 const createTask = async (req, res) => {
   try {
     const { title, description, status, tags } = req.body;
-    const task = await Task.create({ title, description, status, tags });
-    
-    if(tags) {
+    await verifyTags(tags, req.currentUser)
+
+    const task = await Task.create({ title, description, status, tags, userId: req.currentUser.uid },
+      {
+        returning: ['id', 'title', 'description', 'status']
+      }
+    );
+
+    if (tags) {
       associateTags(task.id, tags)
     }
 
-    return res.status(201).json(task);
+    const taskView = mapTaskView(task);
+    return res.status(201).json(taskView);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -17,21 +25,24 @@ const createTask = async (req, res) => {
 
 const getAllTasks = async (req, res) => {
   const hasQueryParameter = Object.keys(req.query).length > 0
-  let whereClause = {}
+  let joinWhereClause = {}
 
-  if(hasQueryParameter) {
-    whereClause.id = req.query.tag
+  if (hasQueryParameter) {
+    joinWhereClause.id = req.query.tag
   }
-  
+
   try {
     const tasks = await Task.findAll({
+      attributes: ['id', 'title', 'description', 'status'],
       include: [{
         model: Tag,
+        attributes: ['id', 'name', 'nameHex', 'backgroundHex'],
         required: hasQueryParameter,
         through: { attributes: [] },
-        where: whereClause,
+        where: joinWhereClause,
         as: 'tags'
-      }]
+      }],
+      where: { userId: req.currentUser.uid }
     });
 
     return res.status(200).json(tasks);
@@ -101,6 +112,27 @@ const associateTags = (taskId, tags) => {
       { fields: ['taskId', 'tagId'], returning: ['taskId', 'tagId'] },
     )
   });
+}
+
+const verifyTags = async (tags, user) => {
+  for (let tag of tags) {
+    const dbTag = await Tag.findByPk(tag.tagId, { attributes: ['id', 'userId'] })
+
+    if (dbTag && dbTag.userId === user.uid) {
+      continue
+    }
+
+    throw new Error('Failed to associate tag')
+  }
+}
+
+const mapTaskView = (task) => {
+  return {
+    id: task.id,
+    title: task.title,
+    description: task.description,
+    status: task.status
+  }
 }
 
 module.exports = {
