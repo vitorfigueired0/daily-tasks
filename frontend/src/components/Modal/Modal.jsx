@@ -21,8 +21,11 @@ export default function Modal({ isCreate, data, isOpen, onClose, children, title
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    await handleSubmit();
-    onClose();
+    const success = await handleSubmit();
+
+    if(success) {
+      onClose();
+    }
   };
 
   const updateTaskStatus = async (id, status) => {

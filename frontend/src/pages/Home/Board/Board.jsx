@@ -4,7 +4,6 @@ import "./Board.css";
 import Modal from "../../../components/Modal/Modal";
 import { useCallback, useEffect, useState } from "react";
 import InputText from "../../../components/InputText/InputText";
-import SingleSelector from "../../../components/OptionSelect/SingleSelector";
 import { KanbanBoard } from "../../../components/Kanban/KanbanBoard/KanbanBoard";
 import PropTypes from "prop-types";
 import { api } from "../../../services/api";
@@ -12,7 +11,13 @@ import Select from 'react-select'
 
 export default function Board({ tasks, setTasks, status, tags }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tagOptions, setTagOptions] = useState([])
+  const [tagOptions, setTagOptions] = useState([]);
+  const [success, setSuccess] = useState(true)
+  const [errors, setErrors] = useState({
+    title: false,
+    description: false,
+    status: false,
+  });
 
   useEffect(() => {
     const mappedTags = tags.map((tag) => { return { value: tag.id, label: tag.name } })
@@ -72,10 +77,19 @@ export default function Board({ tasks, setTasks, status, tags }) {
   );
 
   const handleSubmit = async () => {
-    const mappedTags = newTask.tags.map((tag) => {
-      return { tagId: tag.value }
-    })
-    
+    const newErrors = {
+      title: !newTask.title,
+      description: !newTask.description,
+      status: !newTask.status,
+    };
+    setErrors(newErrors);
+
+    if (newErrors.title || newErrors.description || newErrors.status) {
+      console.error('Fill in all mandatory fields.');
+      return false
+    }
+
+    const mappedTags = newTask.tags.map((tag) => { return { tagId: tag.value }})
     const data = {
       title: newTask.title,
       description: newTask.description,
@@ -97,8 +111,10 @@ export default function Board({ tasks, setTasks, status, tags }) {
       });
 
       setTasks(response.data);
+      return true
     } catch (error) {
       console.error(error);
+      setSuccess(false)
     }
   };
 
@@ -115,13 +131,14 @@ export default function Board({ tasks, setTasks, status, tags }) {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={`Add new task`}
-        handleSubmit={handleSubmit}
+        handleSubmit={(e, success) => handleSubmit(e, success)}
         setNewTask={setNewTask}
       >
         <InputText
-          label="Title"
+          label="Title *"
           placeholder={"Insert task title"}
           required={true}
+          error={errors.title}
           onChange={(e) =>
             setNewTask((prev) => ({ ...prev, title: e.target.value }))
           }
@@ -129,19 +146,20 @@ export default function Board({ tasks, setTasks, status, tags }) {
         
         <InputText
           required={true}
-          label="Description"
+          label="Description *"
           placeholder={"Insert task description"}
           textarea
+          error={errors.description}
           onChange={(e) =>
             setNewTask((prev) => ({ ...prev, description: e.target.value }))
           }
         />
         
-        <label>Status</label>
+        <label>Status *</label>
         <Select
           styles={selectorStyles}
           options={status}
-          defaultValue={status[0]}
+          isRequired
           onChange={(e) => 
             setNewTask((prev) => ({ ...prev, status: e.value}))
           }
