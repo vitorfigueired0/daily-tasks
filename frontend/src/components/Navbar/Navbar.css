@@ -52,3 +52,8 @@
     width: 1.25rem;
     height: 1.25rem;
 }
+
+#logout-button {
+    color: red;
+
+}
