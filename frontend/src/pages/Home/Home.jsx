@@ -4,16 +4,21 @@ import Board from "./Board/Board";
 import Tags from "./Tags/Tags";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState("board");
   const [tasks, setTasks] = useState([]);
   const [tags, setTags] = useState([])
-  
   const [tasksTableData, setTasksTableData] = useState({ rows: [] });
-  const [tagsTableData, setTagsTableData] = useState({ rows: [] });
+
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if(!localStorage.getItem('authToken')) {
+      navigate('/sign')
+    }
+
     const fetchTasks = async () => {
       try {
         const response = await api.get("/tasks", {
