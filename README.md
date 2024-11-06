@@ -61,6 +61,7 @@ Essas escolhas reforçam a coesão visual e a usabilidade da aplicação.
   - Todos os campos obrigatórios devem ser preenchidos para criação do usuário.
   - Não é necessário um email válido; apenas um valor formatado como email é exigido.
   - Não foram aplicadas regras de segurança adicionais na criação de senhas para facilitar os testes.
+  - O email deve ser único, caso contrário não é possível criar um novo usuário
 
 - **Testes**: A implementação de testes para o backend ficou como um possível ponto de melhoria futura, pois não foi realizada para este desafio.
 
