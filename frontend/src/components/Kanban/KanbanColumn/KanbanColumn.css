@@ -8,6 +8,11 @@
   gap: 10px;
 }
 
+.kanban-column-header{
+  display: flex;
+  justify-content: space-between;
+}
+
 #kanban-column-wrapper > h1 {  
   font-size: larger;
   font-weight: 500;
