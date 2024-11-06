@@ -2,26 +2,34 @@
     background: #FFF;
     border-collapse: separate;
     border-spacing: 0;
+    width: 46rem;
 }
 
 .table-header {
     text-align: left;
     color: #8A92A6;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 300;
+    font-size: small;
 }
 
 .table-header-cell {
     background: #EEF2F5;
-    padding: .75rem 1.25rem;
+    padding: 20px 34px;
+    border-bottom: 2px solid #E7E9ED;
 }
 
-.table-cell {
-    padding: .75rem 1.25rem;
+#table-buttons {
+    display: flex;
+    justify-content: end;
+    gap: 20px;
 }
 
 td {
-    padding: .75rem 1.25rem;
+    padding: 12px 34px;
+    border-bottom: 2px solid #E7E9ED;
+    font-weight: 700;
+    font-size: medium;
 }
 
 td button {
@@ -69,4 +77,12 @@ td button:hover {
 
 .table th:first-child {
     border-radius: 0.5rem 0 0 0;
+}
+
+.edit-input {
+    height: 25px;
+    padding: 0px 20px;
+    font-size: medium;
+    border: 1px solid rgba(0, 0, 0, 0.171);
+    font-weight: 700;
 }

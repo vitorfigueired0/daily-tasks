@@ -2,42 +2,58 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Task extends Model {
-        static associate(models) { }
-    }
+	class Task extends Model {
+		static associate(models) {
+			Task.belongsTo(models.User, { foreignKey: 'userId', as: 'user'})
 
-    Task.init(
-        {
-            description: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            status: {
-                type: DataTypes.ENUM('pending', 'inProgress', 'completed'),
-                allowNull: false,
-                defaultValue: 'pending',
-            },
-            assignedTo: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
-            createdAt: {
-                type: DataTypes.DATE,
-                allowNull: false,
-                defaultValue: sequelize.fn('NOW'),
-            },
-            updatedAt: {
-                type: DataTypes.DATE,
-                allowNull: false,
-                defaultValue: sequelize.fn('NOW'),
-            },
-        },
-        {
-            sequelize,
-            modelName: 'Task',
-            tableName: 'Tasks',
-        }
-    );
+			Task.belongsToMany(models.Tag, {
+				through: 'TaskTags',
+				foreignKey: 'taskId',
+				otherKey: 'tagId',
+				as: 'tags'
+			});
+		}
+	}
 
-    return Task;
+	Task.init(
+		{
+			id: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
+				autoIncrement: true,
+				allowNull: false,
+			},
+			title: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				defaultValue: 'Empty Title',
+			},
+			description: {
+				type: DataTypes.STRING,
+				allowNull: false,
+			},
+			status: {
+				type: DataTypes.ENUM('pending', 'inProgress', 'completed'),
+				allowNull: false,
+				defaultValue: 'pending',
+			},
+			createdAt: {
+				type: DataTypes.DATE,
+				allowNull: false,
+				defaultValue: sequelize.fn('NOW'),
+			},
+			updatedAt: {
+				type: DataTypes.DATE,
+				allowNull: false,
+				defaultValue: sequelize.fn('NOW'),
+			},
+		},
+		{
+			sequelize,
+			modelName: 'Task',
+			tableName: 'Tasks',
+		}
+	);
+
+	return Task;
 };

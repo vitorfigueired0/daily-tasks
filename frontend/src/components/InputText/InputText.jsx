@@ -5,10 +5,24 @@ export default function InputText({
   placeholder,
   textarea,
   required,
-  onChange = () => {},
+  value,
+  error,
+  onChange = () => { },
 }) {
+
+  const style = {
+    minWidth: '15rem',
+    border: 'none',
+    borderRadius: '.5rem',
+    outline: error ? '10px solid red' : '1px solid #E9EBEF',
+    background: 'rgba(238, 242, 245, 0.50)',
+    padding: '.75rem 1.25rem'
+  }
+
+  
   return (
-    <div className="input-wrapper">
+    <div className='input-wrapper'>
+    <p>{error}</p>
       {textarea ? (
         <>
           <label htmlFor="input-textarea">{label}</label>
@@ -18,6 +32,8 @@ export default function InputText({
             placeholder={placeholder}
             required={required}
             onChange={onChange}
+            value={value}
+            style={style}
           />
         </>
       ) : (
@@ -30,6 +46,8 @@ export default function InputText({
             name="input-text"
             placeholder={placeholder}
             required={required}
+            value={value}
+            style={style}
           />
         </>
       )}

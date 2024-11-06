@@ -4,54 +4,61 @@ import Board from "./Board/Board";
 import Tags from "./Tags/Tags";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState("board");
   const [tasks, setTasks] = useState([]);
-  const [tasksTableData, setTasksTableData] = useState({
-    headers: [
-      { label: "Responsible", column: "assignedTo" },
-      { label: "Description", column: "description" },
-      { label: "Status", column: "status" },
-    ],
-    rows: [],
-  });
+  const [tags, setTags] = useState([])
+  const [tasksTableData, setTasksTableData] = useState({ rows: [] });
 
-  const mockTags = {
-    headers: [{ label: "Tag", column: "tag" }],
-    rows: [
-      { id: 1, tag: "Design" },
-      { id: 2, tag: "Frontend" },
-      { id: 3, tag: "Backend" },
-    ],
-  };
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if(!localStorage.getItem('authToken')) {
+      navigate('/sign')
+    }
+
     const fetchTasks = async () => {
       try {
-        const response = await api.get("/tasks");
+        const response = await api.get("/tasks", {
+          headers: {
+            Authorization: localStorage.getItem('authToken')
+          }
+        });
         setTasks(response.data);
       } catch (error) {
         console.error(error);
       }
     };
     fetchTasks();
+  }, [tags]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await api.get("/tags", {
+          headers: {
+            Authorization: localStorage.getItem('authToken')
+          }
+        });
+        setTags(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchTags();
   }, []);
 
   useEffect(() => {
-    setTasksTableData({
-      headers: [
-        { label: "Responsible", column: "assignedTo" },
-        { label: "Description", column: "description" },
-        { label: "Status", column: "status" },
-      ],
-      rows: tasks,
-    });
+    setTasksTableData({ rows: tasks });
   }, [tasks, setTasks]);
 
-  const [tags, setTags] = useState(mockTags);
-
-  const statusOptions = [{ id: 1, value: "pending", label: "Pending" }];
+  const statusOptions = [
+    { id: 1, value: "pending", label: "To do" }, 
+    { id: 2, value: "inProgress", label: "In Progress"},
+    { id: 3, value: "completed", label: "Done" }
+  ];
 
   const tabs = {
     board: (
@@ -59,6 +66,7 @@ export default function Home() {
         status={statusOptions}
         tasks={tasksTableData}
         setTasks={setTasks}
+        tags={tags}
       />
     ),
     tags: <Tags tags={tags} setTags={setTags} />,

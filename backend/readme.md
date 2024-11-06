@@ -14,6 +14,7 @@ Certifique-se de configurar as variáveis de ambiente no arquivo `.env` antes de
 
 ```
 NODE_ENV=
+JWT_SECRET=
 DB_HOST=
 DB_PORT=
 DB_USER=
@@ -73,16 +74,19 @@ Isso iniciará o container `postgresdb` com a imagem do PostgreSQL.
 
 ## Dependências
 
-- **express**
-- **sequelize**
-- **pg**
-- **pg-hstore**
-- **dotenv**
+- **bcrypt**: ^5.1.1
+- **cors**: ^2.8.5
+- **dotenv**: ^16.4.5
+- **express**: ^4.21.1
+- **jsonwebtoken**: ^9.0.2
+- **pg**: ^8.13.0
+- **pg-hstore**: ^2.3.4
+- **sequelize**: ^6.37.4
 
 ### Dependências de Desenvolvimento
 
-- **nodemon**
-- **sequelize-cli**
+- **nodemon**: ^3.1.7
+- **sequelize-cli**: ^6.6.2
 
 ## Docker Compose
 
@@ -94,13 +98,22 @@ version: '3.8'
 services:
   postgresdb:
     image: postgres
-    restart: 'always'
-    expose:
-      - '5432'
+    restart: always
     ports:
       - '5432:5432'
+    volumes:
+      - task-manager-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=PizzadeCupimAoAlho23#G4P
+      - POSTGRES_DB=task-manager
+      - POSTGRES_USER=root
+
+volumes:
+  task-manager-data:
 ```
 
 Este serviço cria um container PostgreSQL para o ambiente de desenvolvimento, facilitando o teste e o uso da aplicação.
+
+--- 
+
+Esse README cobre as dependências e configurações necessárias para o backend do projeto. Se precisar de mais ajustes, estou à disposição!

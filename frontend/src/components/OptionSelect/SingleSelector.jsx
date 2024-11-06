@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import "./OptionSelect.css";
-export default function OptionSelect({
+export default function SingleSelector({
   label,
   placeholder,
   options,
   required,
   onChange,
+  value
 }) {
   return (
     <div className="select-wrapper">
@@ -13,9 +14,9 @@ export default function OptionSelect({
       <select
         id="option-select"
         name="option-select"
-        defaultValue={""}
         required={required}
         onChange={onChange}
+        value={value}
       >
         <option value={""} disabled>
           {placeholder}
@@ -30,7 +31,7 @@ export default function OptionSelect({
   );
 }
 
-OptionSelect.propTypes = {
+SingleSelector.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   textarea: PropTypes.bool,
