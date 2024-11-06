@@ -33,7 +33,7 @@ const getAllTasks = async (req, res) => {
 
   try {
     const tasks = await Task.findAll({
-      attributes: ['id', 'title', 'description', 'status'],
+      attributes: ['id', 'title', 'description', 'status', 'updatedAt'],
       include: [{
         model: Tag,
         attributes: ['id', 'name', 'nameHex', 'backgroundHex'],
@@ -80,7 +80,10 @@ const updateTask = async (req, res) => {
 
     if (task) {
       await task.update({ title, description, status });
-      await associateTags(req.params.id, tags)
+      
+      if(tags){
+        await associateTags(req.params.id, tags)
+      }
       await task.reload();
 
       return res.status(200).json(task);

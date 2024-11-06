@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const JWT_SECRET = process.env.JWT_SECRET || 's3cr3t'
 
 const signToken = (userData) => {
 	const token = jwt.sign({
