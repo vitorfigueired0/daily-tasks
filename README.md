@@ -22,7 +22,7 @@ Para uma experiência de usuário personalizada e segregada, foi implementado um
 A visualização Kanban foi implementada para oferecer uma visão clara e organizada das tarefas:
 
 - **Colunas de Status**: A tela principal apresenta três colunas, cada uma representando um status, conforme solicitado pelo layout.
-- **Condicionamento de Tarefas por Status**: As tarefas são exibidas com base em seu status. Tarefas concluídas há mais de cinco segundos são automaticamente ocultadas, mas podem ser visualizadas ao clicar em "Show hidden tasks".
+- **Condicionamento de Tarefas por Status**: As tarefas são exibidas com base em seu status. Tarefas concluídas há mais de cinco segundos (esse valor pode ser alterado no .env com o valor VITE_DONETIME) são ocultadas, mas podem ser visualizadas ao clicar em "Show hidden tasks".
 - **Visualização de Tarefa no Modal**: Ao clicar em uma tarefa, ela é exibida em um modal. O modal permite:
   - Visualizar detalhes.
   - Editar o status.
