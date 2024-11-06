@@ -99,6 +99,25 @@ export const KanbanCard = ({ data, setTasks, tagOptions }) => {
     
   }
 
+  const handleDelete = async () => {
+    try {
+      await api.delete(`/tasks/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
+
+      const response = await api.get("/tasks", {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
+      setTasks(response.data);
+      handleCloseModal()
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div id='kanban-card-wrapper' onClick={() => setIsModalOpen(true)}>
@@ -120,6 +139,7 @@ export const KanbanCard = ({ data, setTasks, tagOptions }) => {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         handleSubmit={handleSubmit}
+        handleDelete={handleDelete}
       >
         {isEditing ? (
           <>

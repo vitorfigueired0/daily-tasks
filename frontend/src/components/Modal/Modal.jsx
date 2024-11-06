@@ -1,6 +1,7 @@
 import "./Modal.css";
 import PropTypes from "prop-types";
 import { MdClose, MdOutlineSave } from "react-icons/md";
+import { FaRegTrashAlt } from "react-icons/fa";
 import Button from "../Button/Button";
 import { FaPlus } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
@@ -12,6 +13,7 @@ export default function Modal({
   children,
   title,
   handleSubmit,
+  handleDelete,
   isEditing,
   setIsEditing,
 }) {
@@ -52,6 +54,9 @@ export default function Modal({
               </footer>
             ) : (
               <footer className="modal-footer">
+                 <Button onClick={handleDelete} deleteStyle>
+                  <FaRegTrashAlt /> Delete Task
+                </Button>
                 <Button onClick={() => setIsEditing(!isEditing)}>
                   <FiEdit2 /> Edit task
                 </Button>
