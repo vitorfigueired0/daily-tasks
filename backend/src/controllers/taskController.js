@@ -73,13 +73,14 @@ const getTaskById = async (req, res) => {
 
 const updateTask = async (req, res) => {
   try {
-    const { title, description, status } = req.body;
+    const { title, description, status, tags } = req.body;
     const task = await Task.findByPk(req.params.id, {
       attributes: ['id']
     });
 
     if (task) {
       await task.update({ title, description, status });
+      await associateTags(req.params.id, tags)
       await task.reload();
 
       return res.status(200).json(task);
@@ -107,10 +108,11 @@ const deleteTask = async (req, res) => {
   }
 };
 
-const associateTags = (taskId, tags) => {
+const associateTags = async (taskId, tags) => {
+  const deleteTaskTags = await TaskTag.destroy({ where: { taskId }})
   tags.forEach(async tag => {
     await TaskTag.create(
-      { taskId, tagId: tag.tagId },
+      { taskId, tagId: tag.tagId ? tag.tagId : tag.id},
       { fields: ['taskId', 'tagId'], returning: ['taskId', 'tagId'] },
     )
   });
