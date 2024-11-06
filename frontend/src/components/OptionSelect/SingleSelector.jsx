@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import "./OptionSelect.css";
-export default function OptionSelect({
+export default function SingleSelector({
   label,
   placeholder,
   options,
@@ -31,7 +31,7 @@ export default function OptionSelect({
   );
 }
 
-OptionSelect.propTypes = {
+SingleSelector.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   textarea: PropTypes.bool,

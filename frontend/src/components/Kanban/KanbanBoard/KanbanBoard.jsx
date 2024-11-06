@@ -24,7 +24,7 @@ export const KanbanBoard = ({ tasks, setTasks }) => {
 		<div id='kanban-wrapper'>
 			{
 				columns.map((column) =>
-					(<KanbanColumn data={column} tasks={tasks} setTasks={setTasks} />))
+					(<KanbanColumn data={column} tasks={tasks} setTasks={setTasks} key={column.id} />))
 			}
 		</div>
 	)

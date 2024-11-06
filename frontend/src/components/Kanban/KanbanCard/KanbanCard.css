@@ -32,13 +32,5 @@
   height: 40px;
   display: flex;
   align-items: center;
-}
-
-#badge-div > span {
-  font-size: 11px;
-  background-color: #E1F6FF;
-  color: #2C62B4;
-  padding: 6px;
-  border-radius: 8px;
-  font-weight: 600;
+  gap: 5px
 }

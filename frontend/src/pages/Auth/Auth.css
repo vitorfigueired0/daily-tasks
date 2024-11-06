@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", Arial;
+}
+
+#main-wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #00BE78, #00D2BE, #00A3BE);
+}
+
+#form-div {
+  background-color: white;
+  width: 470px;
+  border-radius: 25px;
+  box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.150);
+  border: 1px solid rgba(0, 0, 0, 0.150);
+  text-align: center;
+}
+
+.form-div-sigin {
+  height: 380px;
+  padding: 80px 40px;
+}
+
+.form-div-sigup {
+  height: 520px;
+  padding: 40px 40px;
+}
+
+#form-div img {
+  margin: 0px auto;
+  transform: scale(1.5);
+}
+
+#form-div h1 {
+  color: #00BE78;
+}
+
+#form-header {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:50px
+}
+
+#form-div form {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 30px;
+  gap: 15px;
+}
+
+.form-sigin {
+  height: 200px;
+}
+
+.form-signup {
+  height: 320px;
+}
+
+.login-input {
+  margin: 0px auto;
+  height: 20px;
+  width: 95%;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.155);
+  border-radius: 14px;
+}
+
+.submit-button {
+  background-color: #00BE78;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  height: 45px;
+  width: 90%;
+  margin: 10px auto;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #007755;
+}
+
+.toggle-mode {
+	color: #00BE78;
+	cursor: pointer;
+	margin-top: 10px;
+	font-size: 0.9em;
+	text-decoration: underline;
+}
+.toggle-mode:hover {
+	color: #007755;
+}
+
+#error-msg {
+  color: red;
+  font-size: small;
+}

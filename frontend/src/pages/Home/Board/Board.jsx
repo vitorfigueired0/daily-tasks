@@ -2,22 +2,75 @@ import { FaPlus } from "react-icons/fa";
 import Button from "../../../components/Button/Button";
 import "./Board.css";
 import Modal from "../../../components/Modal/Modal";
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import InputText from "../../../components/InputText/InputText";
-import OptionSelect from "../../../components/OptionSelect/OptionSelect";
 import { KanbanBoard } from "../../../components/Kanban/KanbanBoard/KanbanBoard";
 import PropTypes from "prop-types";
 import { api } from "../../../services/api";
+import Select from 'react-select'
 
-export default function Board({ tasks, setTasks, status }) {
+export default function Board({ tasks, setTasks, status, tags }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const clearNewTask = {
-    title: "",
-    description: "",
-    status: "",
-  };
-  const [newTask, setNewTask] = useState(clearNewTask);
+  const [tagOptions, setTagOptions] = useState([]);
+  const [errors, setErrors] = useState({
+    title: false,
+    description: false,
+    status: false,
+  });
 
+  useEffect(() => {
+    const mappedTags = tags.map((tag) => { return { value: tag.id, label: tag.name } })
+    setTagOptions(mappedTags)
+  }, [tags]);
+
+  const modalSelectorStyles = {
+    container: (provided) => ({
+      ...provided,
+      height: '40px'
+
+    }),
+    control: (provided) => ({
+      ...provided,
+      background: 'rgba(238, 242, 245, 0.50)',
+      padding: '5px 3px',
+      border: 'none',
+      borderRadius: '.5rem',
+      outline: '1px solid #E9EBEF',
+    }),
+    menu: (provided) => ({
+      ...provided,
+      background: 'white',
+    }),
+  };
+
+  const filterSelectorStyles = {
+    container: (provided) => ({
+      ...provided,
+      width: '200px',
+      cursor: 'pointer'
+    }),
+    
+    control: (provided) => ({
+      ...provided,
+      background: 'rgba(238, 242, 245, 0.50)',
+      padding: '3px 1px',
+      border: 'none',
+      borderRadius: '.5rem',
+      outline: '1px solid #E9EBEF',
+      cursor: 'pointer'
+    }),
+    menu: (provided) => ({
+      ...provided,
+      background: 'white',
+    }),
+    option: (provided) => ({
+      ...provided,
+      cursor: 'pointer'
+    })
+  };
+  
+  const clearTask = { title: "", description: "", status: "", tags: [] }
+  const [newTask, setNewTask] = useState(clearTask);
   const handleCloseModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -26,30 +79,58 @@ export default function Board({ tasks, setTasks, status }) {
     setIsModalOpen((prev) => !prev);
   };
 
-  const handleDeleteRow = useCallback(
-    async (id) => {
-      if (!tasks.rows.length) {
-        return;
-      }
-      try {
-        await api.delete(`/tasks/${id}`);
-        setTasks((prev) => prev.filter((task) => task.id !== id));
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [tasks.rows.length, setTasks]
-  );
+  const handleChangeFilter = async (tag) => {
+    try {
+      const response = await api.get(`/tasks${tag ? `?tag=${tag.value}` : ''}`, {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
+
+      setTasks(response.data);
+      return true
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const handleSubmit = async () => {
+    const newErrors = {
+      title: !newTask.title,
+      description: !newTask.description,
+      status: !newTask.status,
+    };
+    setErrors(newErrors);
+
+    if (newErrors.title || newErrors.description || newErrors.status) {
+      console.error('Fill in all mandatory fields.');
+      return false
+    }
+
+    const mappedTags = newTask.tags.map((tag) => { return { tagId: tag.value } })
+    const data = {
+      title: newTask.title,
+      description: newTask.description,
+      status: newTask.status,
+      tags: mappedTags
+    }
+
     try {
-      await api.post("/tasks", {
-        title: newTask.title,
-        description: newTask.description,
-        status: newTask.status,
+      await api.post("/tasks", data, {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
       });
-      const response = await api.get("/tasks");
+
+      const response = await api.get("/tasks", {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
+
       setTasks(response.data);
+      setNewTask(clearTask)
+      return true
     } catch (error) {
       console.error(error);
     }
@@ -57,46 +138,75 @@ export default function Board({ tasks, setTasks, status }) {
 
   return (
     <div id="board-wrapper">
-      <Button onClick={handleOpenModal}>
-        <FaPlus />
-        Add Task
-      </Button>
 
-      <KanbanBoard tasks={tasks} setTasks={setTasks}/>
+      <div className="board-header">
+        <Button onClick={handleOpenModal}>
+          <FaPlus />
+          Add Task
+        </Button>
+        
+        <div className="board-filters">
+          <span>Filter by tag:</span>
+          <Select
+            styles={filterSelectorStyles}
+            options={tagOptions}
+            isClearable={true}
+            onChange={(v) => handleChangeFilter(v)}
+          />
+        </div>
+
+      </div>
+
+      <KanbanBoard tasks={tasks} setTasks={setTasks} />
       <Modal
         isCreate={true}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={`Add new task`}
-        handleSubmit={handleSubmit}
+        handleSubmit={(e, success) => handleSubmit(e, success)}
         setNewTask={setNewTask}
       >
         <InputText
-          label="Title"
+          label="Title *"
           placeholder={"Insert task title"}
           required={true}
+          error={errors.title}
           onChange={(e) =>
             setNewTask((prev) => ({ ...prev, title: e.target.value }))
           }
         />
+
         <InputText
           required={true}
-          label="Description"
+          label="Description *"
           placeholder={"Insert task description"}
           textarea
+          error={errors.description}
           onChange={(e) =>
             setNewTask((prev) => ({ ...prev, description: e.target.value }))
           }
         />
-        <OptionSelect
-          label="Status"
-          required={true}
-          placeholder={"Select status"}
+
+        <label>Status *</label>
+        <Select
+          styles={modalSelectorStyles}
           options={status}
+          isRequired
           onChange={(e) =>
-            setNewTask((prev) => ({ ...prev, status: e.target.value }))
+            setNewTask((prev) => ({ ...prev, status: e.value }))
           }
         />
+
+        <label>Tags</label>
+        <Select
+          styles={modalSelectorStyles}
+          options={tagOptions}
+          isMulti
+          onChange={(values) =>
+            setNewTask((prev) => ({ ...prev, tags: values }))
+          }
+        />
+
       </Modal>
     </div>
   );

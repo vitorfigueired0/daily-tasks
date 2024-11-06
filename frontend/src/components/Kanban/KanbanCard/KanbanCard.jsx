@@ -1,13 +1,14 @@
 import { useState } from "react"
 import Modal from "../../Modal/Modal"
+import { TagBadge } from "../../TagBadge/TagBadge"
 import "./KanbanCard.css"
 
 export const KanbanCard = ({ data, setTasks }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { id, title, description, tag } = data
+  const { id, title, description, tags } = data
 
   const truncateDescription = () => {
-    if(description.length <= 100){
+    if (description.length <= 100) {
       return description
     }
 
@@ -25,8 +26,11 @@ export const KanbanCard = ({ data, setTasks }) => {
       <hr />
 
       <div id='badge-div'>
-        <span>Nome da tag</span>
+        {tags.map((tag) => (
+          <TagBadge name={tag.name} nameHex={tag.nameHex} backgroundHex={tag.backgroundHex} key={tag.id}/>
+        ))}
       </div>
+
       <Modal
         isCreate={false}
         data={data}
@@ -34,8 +38,9 @@ export const KanbanCard = ({ data, setTasks }) => {
         onClose={handleCloseModal}
         title={title}
         setTasks={setTasks}
+        handleSubmit={handleCloseModal}
       >
-
+        <div></div>
       </Modal>
     </div>
   )
