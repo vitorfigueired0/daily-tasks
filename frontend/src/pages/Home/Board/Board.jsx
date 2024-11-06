@@ -163,7 +163,7 @@ export default function Board({ tasks, setTasks, status, tags }) {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={`Add new task`}
-        handleSubmit={(e, success) => handleSubmit(e, success)}
+        handleSubmit={handleSubmit}
         setNewTask={setNewTask}
       >
         <InputText

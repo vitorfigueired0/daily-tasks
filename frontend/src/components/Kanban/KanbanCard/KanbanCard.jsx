@@ -2,11 +2,20 @@ import { useState } from "react";
 import { api } from "../../../services/api"
 import Modal from "../../Modal/Modal";
 import { TagBadge } from "../../TagBadge/TagBadge";
+import InputText from "../../InputText/InputText";
 import Select from 'react-select'
 import "./KanbanCard.css";
 
 export const KanbanCard = ({ data, setTasks, tagOptions }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false)
+  const [formData, setFormData] = useState({
+    title: data?.title,
+    description: data?.description,
+    status: data?.status,
+    tags: data?.tags
+  })
+
   const { id, title, description, tags } = data;
 
   const handleCloseModal = () => {
@@ -42,7 +51,6 @@ export const KanbanCard = ({ data, setTasks, tagOptions }) => {
 
   const updateTaskStatus = async (id, status) => {
     const data = { status: status.value }
-    console.log(1)
     try {
       await api.patch(`/tasks/${id}`, data, {
         headers: {
@@ -61,6 +69,36 @@ export const KanbanCard = ({ data, setTasks, tagOptions }) => {
     }
   }
 
+  const handleSubmit = async () => {
+    setIsEditing(false)
+
+    formData.tags = formData.tags.map((tag) => {
+      if(tag.id && tag.name) {
+        return tag
+      }
+
+      return { id: tag.value, name: tag.label }
+    })
+
+    try {
+      await api.patch(`/tasks/${id}`, formData, {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
+
+      const response = await api.get("/tasks", {
+        headers: {
+          Authorization: localStorage.getItem('authToken')
+        }
+      });
+      setTasks(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+    
+  }
+
 
   return (
     <div id='kanban-card-wrapper' onClick={() => setIsModalOpen(true)}>
@@ -75,32 +113,84 @@ export const KanbanCard = ({ data, setTasks, tagOptions }) => {
 
       <Modal
         isView={true}
-        data={data}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={`${title}`}
         setTasks={setTasks}
-        selectStyle={modalSelectorStyles}
-        statusOptions={statusOptions}
-        tagOptions={tagOptions}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        handleSubmit={handleSubmit}
       >
-        <h2>Task description:</h2>
-        <p>{data.description}</p>
+        {isEditing ? (
+          <>
+            <form onSubmit={handleSubmit}>
+              <div className="modal-body">
+                <InputText
+                  label="Title *"
+                  value={formData.title}
+                  required
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, title: e.target.value }))
+                  }
+                />
+                <InputText
+                  label="Description *"
+                  value={formData.description}
+                  textarea
+                  required
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, description: e.target.value }))
+                  }
+                />
+                <label>Status *</label>
+                <Select
+                  required={true}
+                  styles={modalSelectorStyles}
+                  options={Array.from(statusOptions.values())}
+                  defaultValue={statusOptions.get(formData.status)}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, status: e.value }))
+                  }
+                  isRequired
+                />
+                <label>Tags</label>
+                <Select
+                  styles={modalSelectorStyles}
+                  options={tagOptions}
+                  isMulti
+                  value={formData.tags.map((tag) => { return {
+                    value: tag.id ? tag.id : tag.value, 
+                    label: tag.name ? tag.name : tag.label
+                  }})}
+                  onChange={(values) =>
+                    setFormData((prev) => ({ ...prev, tags: values }))
+                  }
+                />
+              </div>
+            </form>
+          </>
+        ) : (
+          <>
+            <h2>Task description:</h2>
+            <p>{data.description}</p>
 
-        <h2>Status</h2>
-        <Select
-          required={true}
-          styles={modalSelectorStyles}
-          options={Array.from(statusOptions.values())}
-          defaultValue={statusOptions.get(data.status)}
-          isRequired
-          onChange={(e) => updateTaskStatus(data.id, e)}
-        />
+            <h2>Status</h2>
+            <Select
+              required={true}
+              styles={modalSelectorStyles}
+              options={Array.from(statusOptions.values())}
+              defaultValue={statusOptions.get(data.status)}
+              isRequired
+              onChange={(e) => updateTaskStatus(data.id, e)}
+            />
 
-        <h2>Tags:</h2>
-        <div className="tags">
-          {data.tags.map((tag) => (<TagBadge name={tag.name} nameHex={tag.nameHex} backgroundHex={tag.backgroundHex} />))}
-        </div>
+            <h2>Tags:</h2>
+            <div className="tags">
+              {data.tags.map((tag) => (<TagBadge name={tag.name} nameHex={tag.nameHex} backgroundHex={tag.backgroundHex} />))}
+            </div>
+          </>
+        )}
+
 
       </Modal>
     </div>

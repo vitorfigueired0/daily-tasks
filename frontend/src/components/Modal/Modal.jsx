@@ -1,17 +1,20 @@
 import "./Modal.css";
 import PropTypes from "prop-types";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdOutlineSave } from "react-icons/md";
 import Button from "../Button/Button";
 import { FaPlus } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
-import Select from 'react-select'
-import { useEffect, useState } from "react";
-import InputText from "../InputText/InputText";
 
 export default function Modal({
-  isView, isOpen, onClose, children, title, handleSubmit, data, selectStyles, statusOptions, tagOptions
+  isView,
+  isOpen,
+  onClose,
+  children,
+  title,
+  handleSubmit,
+  isEditing,
+  setIsEditing,
 }) {
-  const [isEditing, setIsEditing] = useState(false);
 
   if (!isOpen) {
     return null;
@@ -21,14 +24,10 @@ export default function Modal({
     event.preventDefault();
     const success = await handleSubmit();
 
-    if (success) {
-      onClose();
-    }
-  };
 
-  const handleEditTask = () => {
-    setIsEditing(!isEditing)
-  }
+    onClose();
+
+  };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -43,46 +42,22 @@ export default function Modal({
 
         {isView ? (
           <div>
+            <div className="modal-body">{children}</div>
+
             {isEditing ? (
-              <form onSubmit={onSubmit}>
-                <div className="modal-body">
-                  <InputText
-                    label="Title *"
-                    value={data.title}
-                    required
-                  />
-                  <InputText
-                    label="Description *"
-                    value={data.description}
-                    textarea
-                    required
-                  />
-                  <label>Status *</label>
-                  <Select
-                    required={true}
-                    styles={selectStyles}
-                    options={Array.from(statusOptions.values())}
-                    defaultValue={statusOptions.get(data.status)}
-                    isRequired
-                  />
-                  <label>Tags</label>
-                  <Select
-                    styles={selectStyles}
-                    options={tagOptions}
-                    isMulti
-                    //value={tagOptions.map(tag => ({ value: tag.id, label: tag.name }))}
-                    //onChange={(selectedOptions) => setEditTags(selectedOptions.map(option => ({ id: option.value, name: option.label })))}
-                  />
-                </div>
-              </form>
+              <footer className="modal-footer">
+                <Button onClick={onSubmit}>
+                  <MdOutlineSave /> Save changes
+                </Button>
+              </footer>
             ) : (
-              <div className="modal-body">{children}</div>
-            )}
-            <footer className="modal-footer">
-              <Button onClick={() => handleEditTask()}>
-                <FiEdit2 /> Edit task
-              </Button>
-            </footer>
+              <footer className="modal-footer">
+                <Button onClick={() => setIsEditing(!isEditing)}>
+                  <FiEdit2 /> Edit task
+                </Button>
+              </footer>)
+            }
+
           </div>
 
         ) : (
