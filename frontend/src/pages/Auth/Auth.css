@@ -61,7 +61,7 @@
 }
 
 .form-signup {
-  height: 300px;
+  height: 320px;
 }
 
 .login-input {
@@ -99,4 +99,9 @@
 }
 .toggle-mode:hover {
 	color: #007755;
+}
+
+#error-msg {
+  color: red;
+  font-size: small;
 }

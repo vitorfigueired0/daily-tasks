@@ -8,16 +8,19 @@ export const Auth = () => {
 	const [isSignUp, setIsSignUp] = useState(false);
 	const clearFormData = { name: '', email: '', password: '', confirmPassword: '' }
 	const [formData, setFormData] = useState(clearFormData)
+	const [error, setError] = useState('')
 
 	const navigate = useNavigate()
 
 	const toggleMode = () => {
 		setIsSignUp((prev) => !prev);
 		setFormData(clearFormData)
+		setError('')
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		setError('')
 		if (isSignUp) {
 			signUp()
 		} else {
@@ -32,8 +35,9 @@ export const Auth = () => {
 			password: formData.password
 		}
 
+		let res
 		try {
-			const res = await api.post('/auth', data)
+			res = await api.post('/auth', data)
 			if (res.status == 200) {
 				localStorage.setItem('authToken', `Bearer ${res.data.token}`)
 				navigate('/')
@@ -42,17 +46,32 @@ export const Auth = () => {
 			}
 		} catch (error) {
 			console.error(error)
+			const errorMsg = error.response.data.error
+			
+			setError(errorMsg)
 		}
 	}
 
 	const signUp = async () => {
 		try {
+			
+			if(formData.password !== formData.confirmPassword) {
+				setError("Password don't match")
+				return
+			}
+			
 			const res = await api.post('/user', formData)
 			if (res.status == 201) {
 				signIn()
 			}
+
 		} catch (error) {
 			console.log(error)
+			const res = error.response
+
+			if(res.status == 500) {
+				setError('Error! please, try again')
+			}
 		}
 	}
 
@@ -108,13 +127,13 @@ export const Auth = () => {
 							required
 						/>
 					)}
-
 					<button
 						type='submit'
 						className='submit-button'
 					>
 						{isSignUp ? 'Sing Up' : 'Sign In'}
 					</button>
+					{error && (<p id='error-msg'> {error} </p>)}
 				</form>
 
 				<p onClick={toggleMode} className='toggle-mode'>
