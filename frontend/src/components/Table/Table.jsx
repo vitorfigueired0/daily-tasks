@@ -35,7 +35,7 @@ export default function Table({ data, setTags }) {
 
   const handleEditClick = (tag) => {
     setEditingTagId(tag.id);
-    setEditingTagName(tag.name); // preenche o input com o valor atual
+    setEditingTagName(tag.name); 
   };
 
   const handleEditChange = (event) => {
@@ -56,7 +56,7 @@ export default function Table({ data, setTags }) {
         }
       });
       setTags(response.data);
-      setEditingTagId(null); // sai do modo de edição
+      setEditingTagId(null); 
       setEditingTagName("");
     } catch (error) {
       console.error(error);

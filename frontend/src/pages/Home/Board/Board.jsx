@@ -159,7 +159,7 @@ export default function Board({ tasks, setTasks, status, tags }) {
 
       <KanbanBoard tasks={tasks} setTasks={setTasks} />
       <Modal
-        isCreate={true}
+        isView={false}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={`Add new task`}
