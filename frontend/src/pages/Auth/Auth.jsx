@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import './SignUp.css';
-import obucLogo from '../../../assets/obuc-logo.png';
-import { api } from '../../../services/api';
+import './Auth.css';
+import obucLogo from '../../assets/obuc-logo.png';
+import { api } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 
-export const SignUp = () => {
+export const Auth = () => {
 	const [isSignUp, setIsSignUp] = useState(false);
-	const clearFormData = { name: '', email: '', password: '', confirmPassword: '' } 
+	const clearFormData = { name: '', email: '', password: '', confirmPassword: '' }
 	const [formData, setFormData] = useState(clearFormData)
 
 	const navigate = useNavigate()
@@ -18,7 +18,7 @@ export const SignUp = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		if(isSignUp) {
+		if (isSignUp) {
 			signUp()
 		} else {
 			signIn()
@@ -26,7 +26,7 @@ export const SignUp = () => {
 	}
 
 	const signIn = async () => {
-		
+
 		const data = {
 			email: formData.email,
 			password: formData.password
@@ -34,7 +34,7 @@ export const SignUp = () => {
 
 		try {
 			const res = await api.post('/auth', data)
-			if(res.status == 200){
+			if (res.status == 200) {
 				localStorage.setItem('authToken', `Bearer ${res.data.token}`)
 				navigate('/')
 
@@ -48,7 +48,7 @@ export const SignUp = () => {
 	const signUp = async () => {
 		try {
 			const res = await api.post('/user', formData)
-			if(res.status == 201){
+			if (res.status == 201) {
 				signIn()
 			}
 		} catch (error) {
@@ -70,8 +70,8 @@ export const SignUp = () => {
 							className='login-input'
 							placeholder='Full Name'
 							value={formData.name}
-							onChange={(e) => 
-								setFormData((prev) =>({...prev, name: e.target.value}))
+							onChange={(e) =>
+								setFormData((prev) => ({ ...prev, name: e.target.value }))
 							}
 							required
 						/>
@@ -81,8 +81,8 @@ export const SignUp = () => {
 						className='login-input'
 						placeholder='Email'
 						value={formData.email}
-						onChange={(e) => 
-							setFormData((prev) =>({...prev, email: e.target.value}))
+						onChange={(e) =>
+							setFormData((prev) => ({ ...prev, email: e.target.value }))
 						}
 						required
 					/>
@@ -91,8 +91,8 @@ export const SignUp = () => {
 						className='login-input'
 						placeholder='Password'
 						value={formData.password}
-						onChange={(e) => 
-							setFormData((prev) =>({...prev, password: e.target.value}))
+						onChange={(e) =>
+							setFormData((prev) => ({ ...prev, password: e.target.value }))
 						}
 						required
 					/>
@@ -102,8 +102,8 @@ export const SignUp = () => {
 							className='login-input'
 							placeholder='Confirm password'
 							value={formData.confirmPassword}
-							onChange={(e) => 
-								setFormData((prev) =>({...prev, confirmPassword: e.target.value}))
+							onChange={(e) =>
+								setFormData((prev) => ({ ...prev, confirmPassword: e.target.value }))
 							}
 							required
 						/>

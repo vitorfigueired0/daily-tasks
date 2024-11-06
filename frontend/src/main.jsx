@@ -7,7 +7,7 @@ import {
 
 import './index.css'
 import App from './App.jsx';
-import { SignUp } from './pages/Auth/SignUp/SignUp.jsx';
+import { Auth } from './pages/Auth/Auth.jsx';
 
 const router = createBrowserRouter([
   {
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/sign",
-    element: <SignUp />
+    path: "/auth",
+    element: <Auth />
   }
 ]);
 
