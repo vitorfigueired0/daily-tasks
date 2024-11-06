@@ -78,3 +78,11 @@ td button:hover {
 .table th:first-child {
     border-radius: 0.5rem 0 0 0;
 }
+
+.edit-input {
+    height: 25px;
+    padding: 0px 20px;
+    font-size: medium;
+    border: 1px solid rgba(0, 0, 0, 0.171);
+    font-weight: 700;
+}

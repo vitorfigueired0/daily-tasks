@@ -10,20 +10,6 @@ import InputText from "../../../components/InputText/InputText";
 export default function Tags({ tags, setTags }) {
   const [newTag, setNewTag] = useState({ name: "" });
 
-  // const handleDeleteRow = useCallback(
-  //   async (id) => {
-  //     if (!tags.length) {
-  //       return;
-  //     }
-
-  //     setTags((prev) => ({
-  //       ...prev,
-  //       rows: prev.rows.filter((tag) => tag.id !== id),
-  //     }));
-  //   },
-  //   [tags.length, setTags]
-  // );
-
   const handleTagSubmit = async (event) => {
     event.preventDefault();
 
@@ -73,7 +59,7 @@ export default function Tags({ tags, setTags }) {
         </form>
       </div>
 
-      <Table data={{ headers: [{ label: "Tag name", column: "name" }], rows: tags }} handleDeleteRow={() => console.log('abc')}/>
+      <Table data={{ headers: [{ label: "Tag name", column: "name" }], rows: tags }} setTags={setTags}/>
     </div>
   );
 }

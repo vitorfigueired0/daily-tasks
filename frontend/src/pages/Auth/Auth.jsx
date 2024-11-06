@@ -18,13 +18,13 @@ export const Auth = () => {
 		setError('')
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 		setError('')
 		if (isSignUp) {
-			signUp()
+			await signUp()
 		} else {
-			signIn()
+			await signIn()
 		}
 	}
 
@@ -62,7 +62,8 @@ export const Auth = () => {
 			
 			const res = await api.post('/user', formData)
 			if (res.status == 201) {
-				signIn()
+				await signIn()
+				return
 			}
 
 		} catch (error) {

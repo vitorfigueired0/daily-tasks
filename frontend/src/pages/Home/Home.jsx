@@ -32,7 +32,7 @@ export default function Home() {
       }
     };
     fetchTasks();
-  }, []);
+  }, [tags]);
 
   useEffect(() => {
     const fetchTags = async () => {
