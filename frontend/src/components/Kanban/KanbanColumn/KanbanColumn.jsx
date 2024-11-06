@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import "./KanbanColumn.css"
 import { KanbanCard } from "../KanbanCard/KanbanCard"
 
-export const KanbanColumn = ({ data, tasks, setTasks }) => {
+export const KanbanColumn = ({ data, tasks, setTasks, tagOptions }) => {
   const [cardsData, setCardsData] = useState([])
   const { id, title, statusId } = data
 
@@ -19,7 +19,7 @@ export const KanbanColumn = ({ data, tasks, setTasks }) => {
       <h1>{title}</h1>
       <hr id={id} />
       {cardsData.map((card) => (
-        <KanbanCard data={card} setTasks={setTasks} key={card.id}/>
+        <KanbanCard data={card} setTasks={setTasks} key={card.id} tagOptions={tagOptions}/>
       ))}
     </div>
   )

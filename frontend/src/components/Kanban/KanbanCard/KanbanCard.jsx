@@ -5,7 +5,7 @@ import { TagBadge } from "../../TagBadge/TagBadge";
 import Select from 'react-select'
 import "./KanbanCard.css";
 
-export const KanbanCard = ({ data, setTasks }) => {
+export const KanbanCard = ({ data, setTasks, tagOptions }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { id, title, description, tags } = data;
 
@@ -80,6 +80,9 @@ export const KanbanCard = ({ data, setTasks }) => {
         onClose={handleCloseModal}
         title={`${title}`}
         setTasks={setTasks}
+        selectStyle={modalSelectorStyles}
+        statusOptions={statusOptions}
+        tagOptions={tagOptions}
       >
         <h2>Task description:</h2>
         <p>{data.description}</p>

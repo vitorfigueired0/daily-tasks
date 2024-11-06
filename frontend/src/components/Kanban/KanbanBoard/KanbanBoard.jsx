@@ -1,7 +1,7 @@
 import "./KanbanBoard.css"
 import { KanbanColumn } from "../KanbanColumn/KanbanColumn"
 
-export const KanbanBoard = ({ tasks, setTasks }) => {
+export const KanbanBoard = ({ tasks, setTasks, tagOptions }) => {
 	const columns = [
 		{
 			id: 'to-do-style',
@@ -24,7 +24,7 @@ export const KanbanBoard = ({ tasks, setTasks }) => {
 		<div id='kanban-wrapper'>
 			{
 				columns.map((column) =>
-					(<KanbanColumn data={column} tasks={tasks} setTasks={setTasks} key={column.id} />))
+					(<KanbanColumn data={column} tasks={tasks} setTasks={setTasks} key={column.id} tagOptions={tagOptions}/>))
 			}
 		</div>
 	)

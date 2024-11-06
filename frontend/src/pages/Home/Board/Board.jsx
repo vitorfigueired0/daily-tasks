@@ -157,7 +157,7 @@ export default function Board({ tasks, setTasks, status, tags }) {
 
       </div>
 
-      <KanbanBoard tasks={tasks} setTasks={setTasks} />
+      <KanbanBoard tasks={tasks} setTasks={setTasks} tagOptions={tagOptions} />
       <Modal
         isView={false}
         isOpen={isModalOpen}
