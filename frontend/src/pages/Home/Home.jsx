@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     if(!localStorage.getItem('authToken')) {
-      navigate('/sign')
+      navigate('/auth')
     }
 
     const fetchTasks = async () => {
