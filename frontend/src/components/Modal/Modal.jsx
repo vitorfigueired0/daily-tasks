@@ -6,7 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 import { useEffect, useState } from "react";
 
-export default function Modal({ isView, data, isOpen, onClose, children, title, handleSubmit, setTasks }) {
+export default function Modal({ isView, isOpen, onClose, children, title, handleSubmit, data }) {
   const [isEditing, setIsEditing] = useState(false);
 
   if (!isOpen) {
@@ -23,7 +23,7 @@ export default function Modal({ isView, data, isOpen, onClose, children, title, 
   };
 
   const handleEditTask = () => {
-    setIsEditing(true)
+    setIsEditing(!isEditing)
   }
 
   return (
@@ -39,9 +39,15 @@ export default function Modal({ isView, data, isOpen, onClose, children, title, 
 
         {isView ? (
           <div>
-            <div className="modal-body">{children}</div>
+            {isEditing ? (
+              <form onSubmit={onSubmit}>
+              <div className="modal-body"></div>
+            </form>
+            ) : (
+              <div className="modal-body">{children}</div>
+            )}
             <footer className="modal-footer">
-              <Button onClick={() => console.log(1)}>
+              <Button onClick={() => handleEditTask()}>
                 <FiEdit2 /> Edit task
               </Button>
             </footer>
