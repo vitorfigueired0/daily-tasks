@@ -8,51 +8,90 @@
   width: 100vw;
   min-height: 100vh;
   display: flex;
-}
-
-#color-div {
-  background-color: #00BE78;
-  width: 30%;
-  padding: 100px 30px;
-  color: white;
-  text-align: center;
-  display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-#color-div-child > h1 {
-  margin: 30px 0px;
-  font-size: 55px;
-}
-
-#color-div-child > p {
-  font-size: 25px;
-}
-
-#color-div-child > button {
-  font-size: 20px;
-  padding: 20px 10px;
-  background-color: transparent;
-  color: white;
-
-  border: 1px solid white;
-  border-radius: 50px;
-  cursor: pointer;
-  width: 85%;
-  margin: 0px auto;
-}
-
-#color-div-child > button:hover {
-  background-color: rgba(255, 255, 255, 0.120);
-}
-
-#color-div-child {
-  display: flex;
-  flex-direction: column;
-  gap: 35px;
+  justify-content: center;
+  background: linear-gradient(135deg, #00BE78, #00D2BE, #00A3BE);
 }
 
 #form-div {
-  width: 70%;
+  background-color: white;
+  width: 470px;
+  border-radius: 25px;
+  box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.150);
+  border: 1px solid rgba(0, 0, 0, 0.150);
+  text-align: center;
+}
+
+.form-div-sigin {
+  height: 380px;
+  padding: 80px 40px;
+}
+
+.form-div-sigup {
+  height: 520px;
+  padding: 40px 40px;
+}
+
+#form-div img {
+  margin: 0px auto;
+  transform: scale(1.5);
+}
+
+#form-div h1 {
+  color: #00BE78;
+}
+
+#form-header {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:50px
+}
+
+#form-div form {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 30px;
+  gap: 15px;
+}
+
+.form-sigin {
+  height: 200px;
+}
+
+.form-signup {
+  height: 300px;
+}
+
+.login-input {
+  margin: 0px auto;
+  height: 20px;
+  width: 95%;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.155);
+  border-radius: 14px;
+}
+
+.submit-button {
+  background-color: #00BE78;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  height: 45px;
+  width: 90%;
+  margin: 10px auto;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.toggle-mode {
+	color: #00BE78;
+	cursor: pointer;
+	margin-top: 10px;
+	font-size: 0.9em;
+	text-decoration: underline;
+}
+.toggle-mode:hover {
+	color: #007755;
 }
