@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 import "./Navbar.css";
-import { GoGear } from "react-icons/go";
-import { PiLayout } from "react-icons/pi";
-import { MdLogout } from "react-icons/md";
+import { FaTag } from "react-icons/fa";
+import { MdLogout, MdViewKanban } from "react-icons/md";
+import logo from "../../assets/logo.png"
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ currentTab, setCurrentTab }) {
   const navigate = useNavigate()
   const navButtons = [
-    { id: 1, label: "Board", icon: <PiLayout />, value: "board" },
-    { id: 2, label: "Tags", icon: <GoGear />, value: "tags" },
+    { id: 1, label: "Board", icon: <MdViewKanban />, value: "board" },
+    { id: 2, label: "Tags", icon: <FaTag />, value: "tags" },
   ];
 
   const handleLogout = () => {
@@ -19,7 +19,7 @@ export default function Navbar({ currentTab, setCurrentTab }) {
   
   return (
     <div className="navbar-wrapper">
-      {/* <img className="navbar-logo" src={obucLogo} alt="Obuc logo" /> */}
+      <img className="navbar-logo" src={logo} alt="Logo" />
       <div className="buttons-wrapper">
         {navButtons.map((button) => (
           <button
