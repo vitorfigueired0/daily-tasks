@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #00BE78, #00D2BE, #00A3BE);
+  background: linear-gradient(135deg, #1E2340, #2B335B, #444A7A);
 }
 
 #form-div {
@@ -38,7 +38,11 @@
 }
 
 #form-div h1 {
-  color: #00BE78;
+  color: #444A7A;
+  font-family: "Zen Dots", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px
 }
 
 #form-header {
@@ -74,7 +78,7 @@
 }
 
 .submit-button {
-  background-color: #00BE78;
+  background-color: #444A7A;
   color: white;
   border: none;
   border-radius: 14px;
@@ -87,18 +91,17 @@
 }
 
 .submit-button:hover {
-  background-color: #007755;
+  background-color: #1E2340;
 }
 
 .toggle-mode {
-	color: #00BE78;
+	color: #444A7A;
 	cursor: pointer;
-	margin-top: 10px;
 	font-size: 0.9em;
 	text-decoration: underline;
 }
 .toggle-mode:hover {
-	color: #007755;
+	color: #1E2340;
 }
 
 #error-msg {

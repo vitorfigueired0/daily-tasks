@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './Auth.css';
-import obucLogo from '../../assets/obuc-logo.png';
+import logo from '../../assets/logo.png';
 import { api } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 
@@ -80,7 +80,7 @@ export const Auth = () => {
 		<div id='main-wrapper'>
 			<div id='form-div' className={isSignUp ? 'form-div-sigup' : 'form-div-sigin'}>
 				<div id='form-header'>
-					<figure><img src={obucLogo} alt='Logo' /></figure>
+					<h1>Daily Tasks</h1>
 				</div>
 
 				<form className={isSignUp ? 'form-signup' : 'form-signin'} onSubmit={(e) => handleSubmit(e)}>

@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import "./Navbar.css";
-import obucLogo from "../../assets/obuc-logo.png";
 import { GoGear } from "react-icons/go";
 import { PiLayout } from "react-icons/pi";
 import { MdLogout } from "react-icons/md";
@@ -20,7 +19,7 @@ export default function Navbar({ currentTab, setCurrentTab }) {
   
   return (
     <div className="navbar-wrapper">
-      <img className="navbar-logo" src={obucLogo} alt="Obuc logo" />
+      {/* <img className="navbar-logo" src={obucLogo} alt="Obuc logo" /> */}
       <div className="buttons-wrapper">
         {navButtons.map((button) => (
           <button
