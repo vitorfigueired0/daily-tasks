@@ -142,7 +142,7 @@ export default function Board({ tasks, setTasks, status, tags }) {
       <div className="board-header">
         <Button onClick={handleOpenModal}>
           <FaPlus />
-          Add Task
+          <span className='button-label'>Add Task</span>
         </Button>
         
         <div className="board-filters">

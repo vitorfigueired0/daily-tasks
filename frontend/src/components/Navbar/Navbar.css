@@ -63,12 +63,11 @@
 	bottom: 0;
 }
 
+
 @media (max-width: 640px) {
-	
 	.navbar-wrapper {
 		width: 100%;
 		z-index: 10;
-		display: flex;
 		flex-direction: row;
 		height: 4.2rem;
 		position: absolute;
@@ -99,5 +98,4 @@
 	.button-label {
 		display: none;
 	}
-
 }
