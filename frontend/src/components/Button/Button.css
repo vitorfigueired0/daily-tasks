@@ -55,11 +55,16 @@
   background: #EEE;
 }
 
+@media (max-width: 768px) {
+  .button-wrapper button {
+    min-width: 4.5rem;
+    height: 42px;
+  }
+}
+
 
 @media (max-width: 640px) {
   .button-wrapper button {
     min-width: 3.5rem;
-    height: 42px;
   }
-
 }
