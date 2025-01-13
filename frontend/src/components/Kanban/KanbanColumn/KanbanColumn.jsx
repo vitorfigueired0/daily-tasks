@@ -15,15 +15,6 @@ export const KanbanColumn = ({ data, tasks, setTasks, tagOptions }) => {
     if (tasks) {
       const columnTasks = tasks.rows.filter((task) => {
         if (task.status !== statusId) return false;
-        
-        if (statusId === "completed") {
-          const now = new Date();
-          const updatedAt = new Date(task.updatedAt);
-          const timeDiff = (now - updatedAt) / 1000;
-          console.log(timeDiff)
-          return showHiddenTasks || timeDiff <= DONETIME;
-        }
-        
         return true;
       });
 
@@ -34,16 +25,7 @@ export const KanbanColumn = ({ data, tasks, setTasks, tagOptions }) => {
   return (
     <div className="kanban-column-wrapper">
       <div className="kanban-column-header">
-        <h1>{title}</h1>
-        {statusId === "completed" && (
-          <Button 
-          onClick={() => setShowHiddenTasks(!showHiddenTasks)}
-          secondaryStyle
-          >
-           {showHiddenTasks ? (<FaEyeSlash />) : (<FaEye />)}
-           {showHiddenTasks ? "Hide tasks" : "Show hidden tasks"}
-          </Button>
-        )}
+        <h1>{title}</h1>  
       </div>
       <hr id={id} />
       {cardsData.map((card) => (
