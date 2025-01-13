@@ -25,3 +25,25 @@
 .form-wrapper input {
 	width: 35rem;
 }
+
+
+@media (max-width: 768px) {
+	.tags-wrapper {
+    width: 100vw;
+  }
+
+	.tags-wrapper h1 {
+		font-size: 1.7rem;
+	}
+
+	.form-wrapper input {
+		width: 63vw;
+	}
+}
+
+@media (max-width: 640px) {
+
+	.form-wrapper input {
+		width: 40vw;
+	}
+}
