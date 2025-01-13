@@ -1,88 +1,101 @@
 .table {
-    background: #FFF;
-    border-collapse: separate;
-    border-spacing: 0;
-    width: 46rem;
+  background: #FFF;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 46rem;
 }
 
 .table-header {
-    text-align: left;
-    color: #8A92A6;
-    font-style: normal;
-    font-weight: 300;
-    font-size: small;
+  text-align: left;
+  color: #8A92A6;
+  font-style: normal;
+  font-weight: 300;
+  font-size: small;
 }
 
 .table-header-cell {
-    background: #EEF2F5;
-    padding: 20px 34px;
-    border-bottom: 2px solid #E7E9ED;
+  background: #EEF2F5;
+  padding: 20px 34px;
+  border-bottom: 2px solid #E7E9ED;
 }
 
 #table-buttons {
-    display: flex;
-    justify-content: end;
-    gap: 20px;
+  display: flex;
+  justify-content: end;
+  gap: 20px;
 }
 
 td {
-    padding: 12px 34px;
-    border-bottom: 2px solid #E7E9ED;
-    font-weight: 700;
-    font-size: medium;
+  padding: 12px 34px;
+  border-bottom: 2px solid #E7E9ED;
+  font-weight: 700;
+  font-size: medium;
 }
 
 td button {
-    border: none;
-    background: none;
-    cursor: pointer;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 td button {
-    font-size: 1.5rem;
-    color: #9E9E9E;
+  font-size: 1.5rem;
+  color: #9E9E9E;
 }
 
 td button:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .table td:last-child {
-    text-align: right;
+  text-align: right;
 }
 
 .table td:first-child {
-    border-left: 1px solid #E9EBEF;
+  border-left: 1px solid #E9EBEF;
 }
 
 .table td:last-child {
-    border-right: 1px solid #E9EBEF;
+  border-right: 1px solid #E9EBEF;
 }
 
 .table tr:last-child td {
-    border-bottom: 1px solid #E9EBEF;
+  border-bottom: 1px solid #E9EBEF;
 }
 
 .table tr:last-child td:last-child {
-    border-radius: 0 0 .5rem 0;
+  border-radius: 0 0 .5rem 0;
 }
 
 .table tr:last-child td:first-child {
-    border-radius: 0 0 0 0.5rem;
+  border-radius: 0 0 0 0.5rem;
 }
 
 .table th:last-child {
-    border-radius: 0 .5rem 0 0;
+  border-radius: 0 .5rem 0 0;
 }
 
 .table th:first-child {
-    border-radius: 0.5rem 0 0 0;
+  border-radius: 0.5rem 0 0 0;
 }
 
 .edit-input {
-    height: 25px;
-    padding: 0px 20px;
-    font-size: medium;
-    border: 1px solid rgba(0, 0, 0, 0.171);
-    font-weight: 700;
+  height: 25px;
+  padding: 0px 20px;
+  font-size: medium;
+  border: 1px solid rgba(0, 0, 0, 0.171);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .table {
+    width: 80vw;
+  }
+}
+
+@media (max-width: 640px) {
+
+  .table {
+    width: 85vw;
+  }
 }

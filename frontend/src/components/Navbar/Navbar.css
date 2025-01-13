@@ -1,62 +1,100 @@
 .navbar-wrapper {
-    width: 20rem;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 0;
-    margin: 0;
-    background: #FFF;
-    box-shadow: 2px 0px 10px 0px #CCC;
-    gap: 1.25rem;
-    box-sizing: border-box;
-    position: relative;
+	width: 20rem;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2rem 0;
+	margin: 0;
+	background: #FFF;
+	box-shadow: 2px 0px 10px 0px #CCC;
+	gap: 1.25rem;
+	box-sizing: border-box;
+	position: relative;
 }
 
 .navbar-logo {
-    width: 150px;
-    height: 150px;
+	width: 150px;
+	height: 150px;
 }
 
 .buttons-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .nav-button {
-    border: none;
-    background: none;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: .5rem 0;
-    padding-left: 3.25rem;
-    font-family: Poppins;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    box-sizing: border-box;
-    text-align: center;
-    color: #707070;
+	border: none;
+	background: none;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: .5rem 0;
+	padding-left: 3.25rem;
+	font-family: Poppins;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	box-sizing: border-box;
+	text-align: center;
+	color: #707070;
 }
-.nav-button:hover, .nav-button.active {
-    color: #000;
-    background: #DBEAFB;
-    cursor: pointer;
-    transition: ease-in-out 0.2s;
+
+.nav-button:hover,
+.nav-button.active {
+	color: #000;
+	background: #DBEAFB;
+	cursor: pointer;
+	transition: ease-in-out 0.2s;
 }
+
 .nav-button svg {
-    width: 1.25rem;
-    height: 1.25rem;
+	width: 1.25rem;
+	height: 1.25rem;
 }
 
 #logout-button {
-    color: red;
-    position: absolute;
-    bottom: 0;
+	color: red;
+	position: absolute;
+	bottom: 0;
+}
 
+
+@media (max-width: 768px) {
+	.navbar-wrapper {
+		width: 100%;
+		flex-direction: row;
+		height: 4.2rem;
+		position: absolute;
+		bottom: 0;
+		padding: 0px;
+	}
+
+	.navbar-logo {
+		display: none;
+	}
+
+	.buttons-wrapper {
+		flex-direction: row;
+		justify-content: space-around;
+	}
+
+	#logout-button {
+		position: static;
+	}
+
+	.nav-button {
+		width: 70px;
+		padding: 15px 10px;
+		justify-content: center;
+		border-radius: 10px;
+	}
+
+	.button-label {
+		display: none;
+	}
 }

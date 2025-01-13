@@ -54,7 +54,7 @@ export default function Tags({ tags, setTags }) {
           />
           <Button typeSubmit={true}>
             <FaPlus />
-            Add Tag 
+            <span className='button-label'>Add Tag</span> 
           </Button>
         </form>
       </div>

@@ -16,7 +16,7 @@ export default function Navbar({ currentTab, setCurrentTab }) {
     localStorage.removeItem('authToken')
     navigate('/auth')
   }
-  
+
   return (
     <div className="navbar-wrapper">
       <img className="navbar-logo" src={logo} alt="Logo" />
@@ -24,22 +24,18 @@ export default function Navbar({ currentTab, setCurrentTab }) {
         {navButtons.map((button) => (
           <button
             key={button.id}
-            className={`nav-button ${
-              currentTab === button.value ? "active" : ""
-            }`}
-            onClick={() => {
-              setCurrentTab(button.value);
-            }}
+            className={`nav-button ${currentTab === button.value ? "active" : ""}`}
+            onClick={() => setCurrentTab(button.value)}
           >
             {button.icon}
-            {button.label}
+            <span className='button-label'>{button.label}</span>
           </button>
         ))}
+        <button className="nav-button" id="logout-button" onClick={handleLogout}>
+          <MdLogout />
+          <span className='button-label'>Log out</span>
+        </button>
       </div>
-      <button className="nav-button" id="logout-button" onClick={handleLogout}>
-        <MdLogout />
-        Log out
-      </button>
     </div>
   );
 }
