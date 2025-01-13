@@ -64,7 +64,7 @@
 }
 
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
 	.navbar-wrapper {
 		width: 100%;
 		z-index: 10;

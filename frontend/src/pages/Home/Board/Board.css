@@ -21,6 +21,7 @@
 .board-header {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 }
 
 .board-filters {
@@ -34,6 +35,11 @@
 	#board-wrapper {
 		width: 100%;
 		overflow-x: auto;
+	}
+
+	.board-filters {
+		gap: 15px;
+		font-size: 15px;
 	}
 
 }

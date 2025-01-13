@@ -46,7 +46,7 @@ export default function Board({ tasks, setTasks, status, tags }) {
   const filterSelectorStyles = {
     container: (provided) => ({
       ...provided,
-      width: '200px',
+      width: '150px',
       cursor: 'pointer'
     }),
     
