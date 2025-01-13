@@ -32,7 +32,7 @@ export const KanbanColumn = ({ data, tasks, setTasks, tagOptions }) => {
   }, [tasks, showHiddenTasks]);
 
   return (
-    <div id="kanban-column-wrapper">
+    <div className="kanban-column-wrapper">
       <div className="kanban-column-header">
         <h1>{title}</h1>
         {statusId === "completed" && (

@@ -42,4 +42,9 @@
 		font-size: 15px;
 	}
 
+	.board-header {
+		position: fixed;
+		width: 40vh;
+	}
+
 }
