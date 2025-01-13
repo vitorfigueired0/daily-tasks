@@ -14,9 +14,9 @@
   height: 42px;
 }
 
-.kanban-column-wrapper > h1 {  
-  font-size: larger;
-  font-weight: 500;
+.column-title {  
+  font-size: 30px;
+  font-weight: 600;
 }
 
 .kanban-column-wrapper > hr {
@@ -35,4 +35,11 @@
 
 #done-style {
   background-color: #40A737;
+}
+
+@media (max-width: 640px) { 
+  
+  .column-title {  
+    font-size: 32px;
+  }
 }

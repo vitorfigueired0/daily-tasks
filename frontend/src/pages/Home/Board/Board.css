@@ -44,7 +44,13 @@
 
 	.board-header {
 		position: fixed;
-		width: 90vw;
+		width: 90vw;		
 	}
 
+}
+
+@media (max-width: 640px) {
+	.board-header {
+		width: 85vw;
+	}
 }
