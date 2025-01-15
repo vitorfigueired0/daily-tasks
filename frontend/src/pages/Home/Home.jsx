@@ -19,18 +19,24 @@ export default function Home() {
       navigate('/auth')
     }
 
+    let response;
     const fetchTasks = async () => {
       try {
-        const response = await api.get("/tasks", {
+        response = await api.get("/tasks", {
           headers: {
             Authorization: localStorage.getItem('authToken')
           }
         });
+        
         setTasks(response.data);
       } catch (error) {
         console.error(error);
+        if(error.status && error.status === 401) {
+          navigate('/auth')
+        }
       }
     };
+
     fetchTasks();
   }, [tags]);
 
