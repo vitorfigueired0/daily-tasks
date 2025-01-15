@@ -98,4 +98,8 @@ td button:hover {
   .table {
     width: 85vw;
   }
+
+  .edit-input {
+    width: 110px;
+  }
 }
