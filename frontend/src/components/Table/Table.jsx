@@ -101,7 +101,7 @@ export default function Table({ data, setTags }) {
               <td id='table-buttons'>
                 {editingTagId === row.id ? (
                   <button onClick={() => handleEditSubmit(row.id)}>
-                    <MdOutlineSave size={24} color='#70798D' />
+                    <MdOutlineSave size={24 } color='#70798D' />
                   </button>
                 ) : (
                   <>
