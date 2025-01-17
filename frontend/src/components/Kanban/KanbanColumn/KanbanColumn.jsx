@@ -25,14 +25,16 @@ export const KanbanColumn = ({ data, tasks, setTasks, tagOptions }) => {
         <h1 className='column-title'>{title}</h1>  
       </div>
       <hr id={id} />
-      {cardsData.map((card) => (
-        <KanbanCard
-          data={card}
-          setTasks={setTasks}
-          key={card.id}
-          tagOptions={tagOptions}
-        />
-      ))}
+      <div className='cards-wrapper'>
+        {cardsData.map((card) => (
+          <KanbanCard
+            data={card}
+            setTasks={setTasks}
+            key={card.id}
+            tagOptions={tagOptions}
+          />
+        ))}
+      </div>
     </div>
   );
 };

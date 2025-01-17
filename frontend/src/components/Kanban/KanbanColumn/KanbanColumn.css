@@ -1,45 +1,65 @@
-.kanban-column-wrapper {
-  background-color: #EEF2F5;
-  height: 100%;
-  border-radius: 10px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.kanban-column-header{
-  display: flex;
-  justify-content: space-between;
-  height: 42px;
-}
-
-.column-title {  
-  font-size: 30px;
-  font-weight: 600;
-}
-
-.kanban-column-wrapper > hr {
-  height: 4px;
-  border: none;
-  margin: 15px 0px;
-}
-
-#to-do-style {
-  background-color: #00569E;
-}
-
-#in-progress-style {
-  background-color: #FFA500;
-}
-
-#done-style {
-  background-color: #40A737;
-}
-
-@media (max-width: 640px) { 
-  
-  .column-title {  
-    font-size: 32px;
+  .kanban-column-wrapper {
+    background-color: #EEF2F5;
+    height: 100%;
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
   }
-}
+
+  .kanban-column-header {
+    display: flex;
+    justify-content: space-between;
+    height: 42px;
+  }
+
+  .column-title {
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  .kanban-column-wrapper>hr {
+    height: 4px;
+    border: none;
+    margin: 15px 0px;
+  }
+
+  .cards-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 15px;
+    width: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    max-height: calc(100% - 58px); /* Ajuste considerando o header e padding */
+    padding-bottom: 10px; /* Espaço extra para o último card */
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .cards-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  #to-do-style {
+    background-color: #00569E;
+  }
+
+  #in-progress-style {
+    background-color: #FFA500;
+  }
+
+  #done-style {
+    background-color: #40A737;
+  }
+
+  @media (max-width: 640px) {
+
+    .column-title {
+      font-size: 32px;
+    }
+  }
