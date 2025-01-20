@@ -12,6 +12,7 @@ export const KanbanColumn = ({ data, tasks, setTasks, tagOptions }) => {
 
   useEffect(() => {
     if (tasks) {
+      console.log('passou')
       const columnTasks = tasks.rows.filter((task) => {
         if (task.status !== statusId) return false;
         return true;
@@ -34,7 +35,7 @@ export const KanbanColumn = ({ data, tasks, setTasks, tagOptions }) => {
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef} className='cards-wrapper'>
             {cardsData.map((card, index) => (
-              <Draggable draggableId={`${card.id}`} index={index}>
+              <Draggable draggableId={`${card.id}`} index={index} key={card.id}>
                 {(provided) => (
                   <KanbanCard
                   provided={provided}
