@@ -5,46 +5,30 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 
 
 
-export const KanbanColumn = ({ data, tasks, setTasks, tagOptions }) => {
-  const [cardsData, setCardsData] = useState([]);
-  const [showHiddenTasks, setShowHiddenTasks] = useState(false);
+export const KanbanColumn = ({ data, setTasks, tagOptions }) => {
   const { id, title, statusId } = data;
 
-  useEffect(() => {
-    if (tasks) {
-      console.log('passou')
-      const columnTasks = tasks.rows.filter((task) => {
-        if (task.status !== statusId) return false;
-        return true;
-      });
-
-      setCardsData(columnTasks);
-    }
-  }, [tasks, showHiddenTasks]);
-
-
   return (
-    <div className="kanban-column-wrapper">
-      
+    <div className="kanban-column-wrapper">  
       <div className="kanban-column-header">
         <h1 className='column-title'>{title}</h1>
       </div>
       <hr id={id} />
-      
-      <Droppable droppableId={statusId}>
+      {data && (
+        <Droppable droppableId={statusId}>
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef} className='cards-wrapper'>
-            {cardsData.map((card, index) => (
+            {data.tasks.map((card, index) => (
               <Draggable draggableId={`${card.id}`} index={index} key={card.id}>
                 {(provided) => (
                   <KanbanCard
-                  provided={provided}
-                  innerRef={provided.innerRef}
-                  data={card}
-                  setTasks={setTasks}
-                  key={card.id}
-                  tagOptions={tagOptions}
-                />
+                    provided={provided}
+                    innerRef={provided.innerRef}
+                    data={card}
+                    setTasks={setTasks}
+                    key={card.id}
+                    tagOptions={tagOptions}
+                  />
                 )}
               </Draggable>
             ))}
@@ -52,6 +36,9 @@ export const KanbanColumn = ({ data, tasks, setTasks, tagOptions }) => {
           </div>
         )}
       </Droppable>
+      )}
+    
     </div>
-  );
+  )
+
 };

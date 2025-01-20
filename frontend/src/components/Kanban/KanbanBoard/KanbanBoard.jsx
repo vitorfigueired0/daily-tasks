@@ -23,11 +23,28 @@ export const KanbanBoard = ({ tasks, setTasks, tagOptions }) => {
 		},
 	]
 
+	const columnsData = columns.map((column) => {
+		return ({
+			...column,
+			tasks: tasks.filter((task) => task.status === column.statusId),
+		})
+	}
+		
+);
+
 	const onDragEnd = async (result) => {
 		const taskId = result.draggableId;
-		const targetTask = tasks.rows.filter((task) => task.id === taskId);
+		const movedTaskIndex = tasks.findIndex((task) => task.id == taskId);
 
-		if (targetTask && (result.destination.droppableId != result.source.droppableId)) {
+
+		if ((movedTaskIndex != -1) && (result.destination.droppableId != result.source.droppableId)) {
+			
+			const updatedTasks = Array.of(...tasks)
+			updatedTasks[movedTaskIndex].status = result.destination.droppableId
+
+			setTasks(updatedTasks)
+
+
 			const data = { status: result.destination.droppableId }
 			try {
 				await api.patch(`/tasks/${taskId}`, data, {
@@ -36,12 +53,6 @@ export const KanbanBoard = ({ tasks, setTasks, tagOptions }) => {
 					}
 				});
 
-				const response = await api.get("/tasks", {
-					headers: {
-						Authorization: localStorage.getItem('authToken')
-					}
-				});
-				setTasks(response.data);
 			} catch (error) {
 				console.error(error);
 			}
@@ -52,7 +63,7 @@ export const KanbanBoard = ({ tasks, setTasks, tagOptions }) => {
 		<div id='kanban-wrapper'>
 			<DragDropContext onDragEnd={(result) => onDragEnd(result)}>
 				{
-					columns.map((column, index) =>
+					columnsData.map((column, index) =>
 						(<KanbanColumn data={column} tasks={tasks} key={index} setTasks={setTasks} tagOptions={tagOptions} />))
 				}
 			</DragDropContext>
