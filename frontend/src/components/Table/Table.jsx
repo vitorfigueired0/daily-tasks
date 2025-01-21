@@ -5,6 +5,7 @@ import { MdOutlineSave } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
 import { api } from "../../services/api";
 import { useState } from "react";
+import { TagBadge } from "../TagBadge/TagBadge";
 
 export default function Table({ data, setTags }) {
   const { headers, rows } = data;
@@ -94,14 +95,18 @@ export default function Table({ data, setTags }) {
                       className="edit-input"
                     />
                   ) : (
-                    row[header.column]
+                    <TagBadge 
+                      name={row.name} 
+                      backgroundHex={row.backgroundHex}
+                      nameHex={row.nameHex}
+                    />
                   )}
                 </td>
               ))}
               <td id='table-buttons'>
                 {editingTagId === row.id ? (
                   <button onClick={() => handleEditSubmit(row.id)}>
-                    <MdOutlineSave size={24 } color='#70798D' />
+                    <MdOutlineSave size={24} color='#70798D' />
                   </button>
                 ) : (
                   <>
