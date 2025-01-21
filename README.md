@@ -1,70 +1,57 @@
+# ✨ Daily Tasks ✨
 
-# Documentação de Implementação das funcionalidades propostas
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white) ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+## Overview
+**Daily Tasks** is a Kanban board interface designed to help you create, control, and visualize your tasks efficiently. This project is part of my portfolio, showcasing key functionalities and a clean, user-friendly interface for task management.
 
-## Introdução
-Este projeto é uma aplicação de gestão de tarefas, com funcionalidades principais que incluem visualização em formato Kanban, categorização de tarefas, e visualizações direcionadas. Foram realizadas melhorias essenciais para aprimorar a experiência do usuário, bem como aprimorar a estrutura de backend com autenticação segura e manipulação de dados sensível.
+## 🚀 Features
+- **🔐 User Authentication**: Create your own user account to segregate tasks. Since this is a portfolio project, email validation is not required; user accounts are for identification purposes only.
+- **📋 Kanban Board**: 
+  - Create and describe tasks.
+  - Add one or more tags for easy identification of task subjects.
+  - Use drag-and-drop functionality to move tasks between columns (To-Do, In Progress, Done).
+- **🏷️ Tags**:
+  - Create as many tags as needed to organize your tasks.
+  - Filter tasks by tag directly on the Kanban board.
 
-## Melhorias Essenciais
+## 🛠️ Installation
+The project contains separate installation guides for the frontend and backend components. Detailed instructions will be provided in their respective folders:
+- [Frontend Installation Guide](./frontend/README.md)
+- [Backend Installation Guide](./backend/README.md)
 
-### 1. Sistema de Login e Autenticação
-Para uma experiência de usuário personalizada e segregada, foi implementado um sistema de login:
-
-- **Tela de Login**: Interface desenvolvida com personalização própria, destacando-se visualmente para demonstrar a minha capacidade de criação de UI personalizada.
-- **Endpoints de Backend**:
-  - `POST /user`: Utilizado para criação de usuários.
-  - `POST /auth`: Endpoint para autenticação de usuários.
-- **Autenticação JWT**: O usuário é autenticado via token JWT, assegurando que cada sessão seja segura.
-- **Criptografia de Senhas**: As senhas são criptografadas com `bcrypt` antes de serem salvas no banco de dados.
-- **Visualização direcionada**: Cada usuário pode ver apenas suas tarefas e categorias, bem como editar e excluir
-- **Logout**: O usuário pode efetuar logout clicando no botão "Log out" na navbar.
-
-### 2. Visualização Kanban
-A visualização Kanban foi implementada para oferecer uma visão clara e organizada das tarefas:
-
-- **Colunas de Status**: A tela principal apresenta três colunas, cada uma representando um status, conforme solicitado pelo layout.
-- **Condicionamento de Tarefas por Status**: As tarefas são exibidas com base em seu status. Tarefas concluídas há mais de cinco segundos (esse valor pode ser alterado no .env com o valor VITE_DONETIME) são ocultadas, mas podem ser visualizadas ao clicar em "Show hidden tasks".
-- **Visualização de Tarefa no Modal**: Ao clicar em uma tarefa, ela é exibida em um modal. O modal permite:
-  - Visualizar detalhes.
-  - Editar o status.
-  - Clicar em "Edit task" para edição completa dos atributos.
-- **Exclusão de Tarefas**: O botão "Delete task" permite excluir a tarefa selecionada.
-
-### 3. Categorias e Tags
-Foi adicionada uma funcionalidade de categorização de tarefas para melhor organização:
-
-- **Criação de Categorias**: Na aba "Tags", o usuário pode criar novas categorias.
-- **Gerenciamento de Tags**: Na mesma aba, o usuário pode editar o nome das tags e deletá-las usando os botões "Lápis" (editar) e "Lixo" (deletar).
-- **Atribuição de Tags**: Durante a criação ou edição de uma tarefa, é possível adicionar múltiplas tags. A tarefa também pode ser criada sem tags, caso desejado.
-- **Filtragem por Tags**: Acima do Kanban, o usuário pode filtrar as tarefas por tags, facilitando a visualização por categorias específicas.
-
-### 4. Layout
-A implementação do layout seguiu as diretrizes do design original, com algumas customizações:
-
-- **Uso de Componentes Existentes**: Todo o layout foi desenvolvido utilizando componentes prontos da aplicação, exceto:
-  - Componentes do Kanban, que foram desenvolvidos de forma personalizada.
-  - Tela de Login, que foi criada para mostrar um diferencial e a habilidade de personalização.
-  
-Essas escolhas reforçam a coesão visual e a usabilidade da aplicação.
-
-## Imagens:
-![Sign in screen](./doc-imgs/sigin.png)
+## 🖼️ Project images:
+![Sign in screen](./doc-imgs/login.png)
 ![Sign up screen](./doc-imgs/signup.png)
 ![Tags screen](./doc-imgs/tags.png)
-![Board screen](./doc-imgs/board.png)
-![Board with filter screen](./doc-imgs/boardfilter.png)
+![Board screen](./doc-imgs/tasks.png)
+![Board with filter screen](./doc-imgs/filter.png)
 
----
+## 📜 License
 
-## Considerações Adicionais
+```
+MIT License
 
-- **Criação de Usuário**:
-  - Todos os campos obrigatórios devem ser preenchidos para criação do usuário.
-  - Não é necessário um email válido; apenas um valor formatado como email é exigido.
-  - Não foram aplicadas regras de segurança adicionais na criação de senhas para facilitar os testes.
-  - O email deve ser único, caso contrário não é possível criar um novo usuário
+Copyright (c) 2025 Vitor Figueiredo
 
-- **Testes**: A implementação de testes para o backend ficou como um possível ponto de melhoria futura, pois não foi realizada para este desafio.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
---- 
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-Esse documento cobre as principais implementações e ajustes feitos. Se precisar de ajustes adicionais ou de mais detalhes em alguma seção, estou à disposição!
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## 📞 Contact
+For questions or inquiries, check my Linkedin profile: [Click here](https://www.linkedin.com/in/vitor-figueiredo-b38b99191/).
+

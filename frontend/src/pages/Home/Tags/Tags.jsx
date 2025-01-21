@@ -9,6 +9,47 @@ import InputText from "../../../components/InputText/InputText";
 
 export default function Tags({ tags, setTags }) {
   const [newTag, setNewTag] = useState({ name: "" });
+  const tagColors = [
+    {
+      backgroundHex: '#E1F6FF',
+      nameHex: '#2C62B4'
+    },
+    {
+      backgroundHex: '#FFF2EC',
+      nameHex: '#FF5733'
+    },
+    {
+      backgroundHex: '#E6FAEC',
+      nameHex: '#28A745'
+    },
+    {
+      backgroundHex: '#F2E6FF',
+      nameHex: '#6F42C1'
+    },
+    {
+      backgroundHex: '#FFF8E1',
+      nameHex: '#FFC107'
+    },
+    {
+      backgroundHex: '#FFEDE9',
+      nameHex: '#DC3545'
+    },
+    {
+      backgroundHex: '#E0F7FA',
+      nameHex: '#17A2B8'
+    },
+    {
+      backgroundHex: '#F8F9FA',
+      nameHex: '#343A40'
+    },
+    
+  ]
+
+  const getRandomInt = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
   const handleTagSubmit = async (event) => {
     event.preventDefault();
@@ -16,6 +57,10 @@ export default function Tags({ tags, setTags }) {
     if(!newTag) {
       return
     }
+
+    const randomColor = tagColors[getRandomInt(0, tagColors.length - 1)]
+    newTag.backgroundHex = randomColor.backgroundHex;
+    newTag.nameHex = randomColor.nameHex;
 
     try {
       await api.post("/tags", newTag, {
@@ -54,7 +99,7 @@ export default function Tags({ tags, setTags }) {
           />
           <Button typeSubmit={true}>
             <FaPlus />
-            Add Tag 
+            <span className='button-label'>Add Tag</span> 
           </Button>
         </form>
       </div>

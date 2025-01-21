@@ -6,7 +6,7 @@ import InputText from "../../InputText/InputText";
 import Select from 'react-select'
 import "./KanbanCard.css";
 
-export const KanbanCard = ({ data, setTasks, tagOptions }) => {
+export const KanbanCard = ({ provided, data, setTasks, tagOptions, innerRef }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false)
   const [formData, setFormData] = useState({
@@ -120,13 +120,19 @@ export const KanbanCard = ({ data, setTasks, tagOptions }) => {
   }
 
   return (
-    <div id='kanban-card-wrapper' onClick={() => setIsModalOpen(true)}>
+    <div 
+      id='kanban-card-wrapper' 
+      ref={innerRef}
+      {...provided.dragHandleProps}
+      {...provided.draggableProps}
+      onClick={() => setIsModalOpen(true)}
+    >
       <h1>{title}</h1>
       <p>{description.length <= 100 ? description : description.slice(0, 96) + '...'}</p>
       <hr />
       <div id='badge-div'>
-        {tags.map((tag) => (
-          <TagBadge name={tag.name} nameHex={tag.nameHex} backgroundHex={tag.backgroundHex} key={tag.id} />
+        {tags.map((tag, index) => (
+          <TagBadge key={index} name={tag.name} nameHex={tag.nameHex} backgroundHex={tag.backgroundHex}/>
         ))}
       </div>
 
@@ -206,7 +212,7 @@ export const KanbanCard = ({ data, setTasks, tagOptions }) => {
 
             <h2>Tags:</h2>
             <div className="tags">
-              {data.tags.map((tag) => (<TagBadge name={tag.name} nameHex={tag.nameHex} backgroundHex={tag.backgroundHex} />))}
+              {data.tags.map((tag, index) => (<TagBadge key={index} name={tag.name} nameHex={tag.nameHex} backgroundHex={tag.backgroundHex} />))}
             </div>
           </>
         )}
