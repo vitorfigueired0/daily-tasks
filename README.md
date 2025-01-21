@@ -21,8 +21,8 @@ The project contains separate installation guides for the frontend and backend c
 
 ## 🖼️ Project images:
 ![Sign in screen](./doc-imgs/login.png)
-![Sign up screen](./doc-imgs/signup.png)
-![Tags screen](./doc-imgs/tags.png)
+![Sign up screen](./doc-imgs/signupp.png)
+![Tags screen](./doc-imgs/tagss.png)
 ![Board screen](./doc-imgs/tasks.png)
 ![Board with filter screen](./doc-imgs/filter.png)
 
