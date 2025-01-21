@@ -1,6 +1,6 @@
   .kanban-column-wrapper {
     background-color: #EEF2F5;
-    height: 86%;
+    height: 100%;
     border-radius: 10px;
     padding: 24px;
     display: flex;
@@ -58,10 +58,6 @@
   }
 
   @media (max-width: 640px) {
-
-    .kanban-column-wrapper {
-      height: 78%;
-    }
 
     .column-title {
       font-size: 32px;

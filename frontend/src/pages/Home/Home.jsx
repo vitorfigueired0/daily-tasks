@@ -10,7 +10,6 @@ export default function Home() {
   const [currentTab, setCurrentTab] = useState("board");
   const [tasks, setTasks] = useState([]);
   const [tags, setTags] = useState([])
-  const [tasksTableData, setTasksTableData] = useState({ rows: [] });
 
   const navigate = useNavigate()
 
@@ -56,9 +55,6 @@ export default function Home() {
     fetchTags();
   }, []);
 
-  useEffect(() => {
-    setTasksTableData({ rows: tasks });
-  }, [tasks, setTasks]);
 
   const statusOptions = [
     { id: 1, value: "pending", label: "To do" }, 
@@ -70,7 +66,7 @@ export default function Home() {
     board: (
       <Board
         status={statusOptions}
-        tasks={tasksTableData}
+        tasks={tasks}
         setTasks={setTasks}
         tags={tags}
       />
