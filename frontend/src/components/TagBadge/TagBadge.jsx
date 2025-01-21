@@ -1,7 +1,7 @@
 export const TagBadge = ({ name, nameHex, backgroundHex }) => {
 	
 	const style = {
-		fontSize: '11px',
+		fontSize: '14px',
 		backgroundColor: backgroundHex,
 		color: nameHex,
 		padding: '6px',
